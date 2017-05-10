@@ -55,7 +55,7 @@ var/const/Z_MAX = 3
 		var/dz = turf_source.y - T.y // Hearing from infront/behind
 		S.z = round(max(-SURROUND_CAP, min(SURROUND_CAP, dz)), 1)
 
-		// The y value is for above your head, but there is no ceiling in 2d spessmens.
+		// The y value is for above your head, but there is no ceiling in 2d spessmens. //There is now lol.
 		var/d = turf_source.y - T.y // Hearing from infront/behind
 		S.y = round(max(-SURROUND_CAP, min(SURROUND_CAP, d)), 1)
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)

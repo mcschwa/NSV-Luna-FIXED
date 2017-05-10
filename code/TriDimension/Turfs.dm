@@ -91,6 +91,7 @@
 								H.apply_damage(damage + rand(-5,5), BRUTE, "l_foot")
 								H.apply_damage(damage + rand(-5,5), BRUTE, "r_foot")
 								H:weakened = max(H:weakened,2)
+								playsound(H.loc, 'sound/effects/fallsmash.ogg', 50, 1)//Splat
 								H:updatehealth()
 						else
 							AM.Move(floorbelow)
