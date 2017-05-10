@@ -229,7 +229,7 @@
 		if(pullin)	pullin.icon_state = "pull[pulling ? 1 : 0]"
 		if (client)
 			client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
-
+		/*
 		if ((blind && stat != 2))
 			if ((blinded))
 				blind.layer = 18
@@ -244,7 +244,9 @@
 
 				if (druggy)
 					client.screen += global_hud.druggy
+		*/
 
+		handle_hud_vision()
 		if (stat != 2)
 			if (machine)
 				if (!( machine.check_eye(src) ))

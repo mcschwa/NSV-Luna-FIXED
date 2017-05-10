@@ -4,14 +4,15 @@
 	if (src.custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
 		icon_state = "[ckey]-ai-crash"
 	else icon_state = "ai-crash"
-	update_canmove()
+	//update_canmove()
 	if(src.eyeobj)
 		src.eyeobj.setLoc(get_turf(src))
+	/*
 	if(blind)	blind.layer = 0
 	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
-
+	*/
 	var/callshuttle = 0
 
 	for(var/obj/machinery/computer/communications/commconsole in world)
@@ -56,7 +57,7 @@
 		if (istype(loc, /obj/item/device/aicard))
 			loc.icon_state = "aicard-404"
 
-	tod = worldtime2text() //weasellos time of death patch
-	if(mind)	mind.store_memory("Time of death: [tod]", 0)
+	//tod = worldtime2text() //weasellos time of death patch
+	//if(mind)	mind.store_memory("Time of death: [tod]", 0)
 
 	return ..(gibbed)

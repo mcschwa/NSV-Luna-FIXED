@@ -5,9 +5,9 @@
 	stat = DEAD
 
 	if(dead_icon) icon_state = dead_icon
-
+	/*
 	if(!gibbed)
 		update_canmove()
 		if(client)	blind.layer = 0
-
+	*/
 	return ..(gibbed)

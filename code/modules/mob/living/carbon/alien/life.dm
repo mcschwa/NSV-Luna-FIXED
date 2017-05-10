@@ -154,7 +154,7 @@
 
 	if (client)
 		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
-
+/*
 	if ((blind && stat != 2))
 		if ((blinded))
 			blind.layer = 18
@@ -166,6 +166,8 @@
 				client.screen += global_hud.blurry
 			if (druggy)
 				client.screen += global_hud.druggy
+*/
+	handle_hud_vision()
 
 	if (stat != 2)
 		if (machine)

@@ -1477,11 +1477,13 @@
 					if(280 to 295)			bodytemp.icon_state = "temp-2"
 					if(260 to 280)			bodytemp.icon_state = "temp-3"
 					else					bodytemp.icon_state = "temp-4"
-
+			/*
 			if(blind)
 				if(blinded)		blind.layer = 18
 				else			blind.layer = 0
+			*/
 
+			handle_hud_vision()
 			if(disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 				if(glasses)					//to every /obj/item
 					var/obj/item/clothing/glasses/G = glasses
