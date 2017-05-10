@@ -1,3 +1,12 @@
+/var/obj/effect/lobby_image = new/obj/effect/lobby_image()
+
+/obj/effect/lobby_image
+	name = "Baystation12"
+	desc = "This shouldn't be read"
+	icon = 'icons/misc/fullscreen.dmi'
+	icon_state = "title"
+	screen_loc = "WEST,SOUTH"
+
 /mob/new_player/Login()
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
 	if(join_motd)
@@ -18,6 +27,7 @@
 
 	sight |= SEE_TURFS
 	player_list |= src
+	client.screen += lobby_image
 
 /*
 	var/list/watch_locations = list()
