@@ -1,1 +1,1 @@
-Update of an update (of possibly another updated) of the NSV Luna. This should work fine. Don't know who originally made the update, but they deserver most of the credit.
+Update of an update (of possibly another updated) of the NSV Luna, and now updated again. Don't know who originally made the update, but they deserver most of the credit. Credit also due to Bloxgate for the last updated version of this codebase.
