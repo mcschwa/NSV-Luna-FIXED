@@ -9,6 +9,7 @@
 
 /mob/new_player/Login()
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
+	winset(src, null, "mainwindow.title='[vessel_name()]'")//Making it so window is named what it's named.
 	if(join_motd)
 		src << "<div class=\"motd\">[join_motd]</div>"
 
