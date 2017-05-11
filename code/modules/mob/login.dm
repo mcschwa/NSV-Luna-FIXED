@@ -26,6 +26,7 @@
 /mob/Login()
 
 	player_list |= src
+	winset(src, null, "mainwindow.title='[vessel_name()]'")
 	update_Login_details()
 	world.update_status()
 
