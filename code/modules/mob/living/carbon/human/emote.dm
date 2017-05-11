@@ -303,6 +303,8 @@
 				m_type = 1
 			else
 				if (!muzzled)
+					if(!stat)
+						return
 					message = "<B>[src]</B> laughs."
 					m_type = 2
 					call_sound_emote("laugh")
@@ -324,6 +326,8 @@
 					lastElaugh=world.time
 			else
 				if (!muzzled)
+					if(!stat)
+						return
 					if (!(world.time-lastElaugh >= 600))
 						usr << "<span class='warning'>You not ready to laugh again!"
 					else
@@ -559,7 +563,9 @@
 				message = "<B>[src]</B> acts out a scream!"
 				m_type = 1
 			else
-				if (!muzzled)
+				if (!muzzled)//NO MORE SCREAMING FROM DEAD AND UNCONCIOUS PEOPLE PLEASE!
+					if(!stat)
+						return
 					message = "<B>[src]</B> screams!"
 					m_type = 2
 					call_sound_emote("scream")
@@ -893,13 +899,13 @@
 	switch(E)
 		if("scream")
 			if (src.gender == "male")
-				playsound(src.loc, pick('sound/voice/Screams_Male_1.ogg', 'sound/voice/Screams_Male_2.ogg', 'sound/voice/Screams_Male_3.ogg'), 100, 1)
+				playsound(src.loc, pick('sound/voice/Screams_Male_1.ogg', 'sound/voice/Screams_Male_2.ogg', 'sound/voice/Screams_Male_3.ogg'), 50, 1)
 			else
-				playsound(src.loc, pick('sound/voice/Screams_Woman_1.ogg', 'sound/voice/Screams_Woman_2.ogg', 'sound/voice/Screams_Woman_3.ogg'), 100, 1)
+				playsound(src.loc, pick('sound/voice/Screams_Woman_1.ogg', 'sound/voice/Screams_Woman_2.ogg', 'sound/voice/Screams_Woman_3.ogg'), 50, 1)
 
 		if("laugh")
 			if (src.gender == "male")
-				playsound(src.loc, pick('sound/voice/male_laugh_1.ogg', 'sound/voice/male_laugh_1.ogg', 'sound/voice/male_laugh_1.ogg'), 100, 1)
+				playsound(src.loc, pick('sound/voice/male_laugh_1.ogg', 'sound/voice/male_laugh_1.ogg', 'sound/voice/male_laugh_1.ogg'), 50, 1)
 			else
 				playsound(src.loc, pick('sound/voice/female_laugh_1.ogg', 'sound/voice/female_laugh_2.ogg'), 100, 1)
 
@@ -907,16 +913,16 @@
 			playsound(playsound(src.loc, 'fart.ogg', 65, 1))
 
 		if("elaugh")
-			playsound(src.loc, 'sound/voice/elaugh.ogg', 100, 1)
+			playsound(src.loc, 'sound/voice/elaugh.ogg', 50, 1)
 
 		if("z_roar")
-			playsound(src.loc, 'sound/voice/z_roar.ogg', 100, 1)
+			playsound(src.loc, 'sound/voice/z_roar.ogg', 50, 1)
 
 		if("z_shout")
-			playsound(src.loc, 'sound/voice/z_shout.ogg', 100, 1)
+			playsound(src.loc, 'sound/voice/z_shout.ogg', 50, 1)
 
 		if("z_mutter")
-			playsound(src.loc, 'sound/voice/z_mutter.ogg', 100, 1)
+			playsound(src.loc, 'sound/voice/z_mutter.ogg', 50, 1)
 
 
 
