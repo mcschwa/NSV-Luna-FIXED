@@ -179,6 +179,7 @@ emp_act
 		target_zone = user.zone_sel.selecting
 	if(!target_zone)
 		visible_message("\red <B>[user] misses [src] with \the [I]!")
+		playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		return 0
 
 	var/datum/organ/external/affecting = get_organ(target_zone)
@@ -222,6 +223,8 @@ emp_act
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
+	if (I.force && I.hitsound)//We want to make sure the hit actually goes through before we play any sounds.
+		playsound(src, I.hitsound, 50, 1, -1)
 
 	var/bloody = 0
 	if(((I.damtype == BRUTE) || (I.damtype == HALLOSS)) && prob(25 + (I.force * 2)))

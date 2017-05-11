@@ -31,8 +31,6 @@
 			return
 	if (istype(M,/mob/living/carbon/brain))
 		messagesource = M:container
-	if (hitsound)
-		playsound(loc, hitsound, 50, 1, -1)
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
@@ -176,5 +174,9 @@
 					M.take_organ_damage(0, power)
 					M << "Aargh it burns!"
 		M.updatehealth()
+	
+	if (force && hitsound)//We want to make sure the hit actually goes through before we play any sounds.
+		playsound(M, hitsound, 50, 1, -1)
+	
 	add_fingerprint(user)
 	return 1
