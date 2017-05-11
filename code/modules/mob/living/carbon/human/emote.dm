@@ -303,7 +303,7 @@
 				m_type = 1
 			else
 				if (!muzzled)
-					if(!stat)
+					if (stat)
 						return
 					message = "<B>[src]</B> laughs."
 					m_type = 2
@@ -326,7 +326,7 @@
 					lastElaugh=world.time
 			else
 				if (!muzzled)
-					if(!stat)
+					if (stat)
 						return
 					if (!(world.time-lastElaugh >= 600))
 						usr << "<span class='warning'>You not ready to laugh again!"
@@ -564,7 +564,7 @@
 				m_type = 1
 			else
 				if (!muzzled)//NO MORE SCREAMING FROM DEAD AND UNCONCIOUS PEOPLE PLEASE!
-					if(!stat)
+					if (stat)
 						return
 					message = "<B>[src]</B> screams!"
 					m_type = 2
