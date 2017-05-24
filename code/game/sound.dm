@@ -14,17 +14,17 @@
 		var/mob/M = P
 		if(!M || !M.client)
 			continue
-		if(get_dist(M, turf_source) <= (world.view + extrarange) * 6)// && source.z > 0 && source.z <= Z_MAX)
+		if(get_dist(M, turf_source) <= (world.view + extrarange) * 2)
 			var/turf/T = get_turf(M)
 			if(T && T.z == turf_source.z)
-				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, 0)
-			if(T && T.z <= Z_MAX)
-				M.playsound_local(turf_source, soundin,  vol/(T.z), vary, frequency, falloff/(T.z), 0)
+				M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff)
+			var/z_dist = abs(T.z - turf_source.z)
+			if(T && z_dist <= 1)
+				M.playsound_local(turf_source, soundin, vol/(1+z_dist), vary, frequency, falloff)
 			
 
 var/const/FALLOFF_SOUNDS = 2
 var/const/SURROUND_CAP = 255
-var/const/Z_MAX = 3
 
 /mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, rec = 1)
 	if(!src.client || ear_deaf > 0)	return
