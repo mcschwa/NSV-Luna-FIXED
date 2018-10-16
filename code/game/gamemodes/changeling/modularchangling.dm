@@ -205,15 +205,15 @@ var/list/datum/power/changeling/powerinstances = list()
 				function updateSearch(){
 
 
-					var filter_text = document.getElementById('filter');
-					var filter = filter_text.value.toLowerCase();
+					var d_filter_text = document.getElementById('d_filter');
+					var d_filter = d_filter_text.value.toLowerCase();
 
 					if(complete_list != null && complete_list != ""){
 						var mtbl = document.getElementById("maintable_data_archive");
 						mtbl.innerHTML = complete_list;
 					}
 
-					if(filter.value == ""){
+					if(d_filter.value == ""){
 						return;
 					}else{
 
@@ -231,8 +231,8 @@ var/list/datum/power/changeling/powerinstances = list()
 								var lsearch = td.getElementsByTagName("b");
 								var search = lsearch\[0\];
 								//var inner_span = li.getElementsByTagName("span")\[1\] //Should only ever contain one element.
-								//document.write("<p>"+search.innerText+"<br>"+filter+"<br>"+search.innerText.indexOf(filter))
-								if ( search.innerText.toLowerCase().indexOf(filter) == -1 )
+								//document.write("<p>"+search.innerText+"<br>"+d_filter+"<br>"+search.innerText.indexOf(d_filter))
+								if ( search.innerText.toLowerCase().indexOf(d_filter) == -1 )
 								{
 									//document.write("a");
 									//ltr.removeChild(tr);
@@ -360,9 +360,9 @@ var/list/datum/power/changeling/powerinstances = list()
 				}
 
 				function selectTextField(){
-					var filter_text = document.getElementById('filter');
-					filter_text.focus();
-					filter_text.select();
+					var d_filter_text = document.getElementById('d_filter');
+					d_filter_text.focus();
+					d_filter_text.select();
 				}
 
 			</script>
@@ -389,7 +389,7 @@ var/list/datum/power/changeling/powerinstances = list()
 			</tr>
 			<tr id='search_tr'>
 				<td align='center'>
-					<b>Search:</b> <input type='text' id='filter' value='' style='width:300px;'>
+					<b>Search:</b> <input type='text' id='d_filter' value='' style='width:300px;'>
 				</td>
 			</tr>
 	</table>

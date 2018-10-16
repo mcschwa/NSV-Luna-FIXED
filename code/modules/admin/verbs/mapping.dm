@@ -145,7 +145,7 @@ var/list/debug_verbs = list (
         ,/client/proc/cmd_admin_rejuvenate
         ,/datum/admins/proc/show_traitor_panel
         ,/client/proc/print_jobban_old
-        ,/client/proc/print_jobban_old_filter
+        ,/client/proc/print_jobban_old_d_filter
         ,/client/proc/forceEvent
         ,/client/proc/break_all_air_groups
         ,/client/proc/regroup_all_air_groups

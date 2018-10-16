@@ -25,7 +25,7 @@
 	..(process, D, copy)
 
 
-// Toxin Filter
+// Toxin d_filter
 
 /datum/disease/advance/heal/New(var/process = 1, var/datum/disease/advance/D, var/copy = 0)
 	if(!D)

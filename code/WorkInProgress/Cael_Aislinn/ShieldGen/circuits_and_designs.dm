@@ -59,10 +59,10 @@ datum/design/shield_gen
 	board_type = "machine"
 	build_path = "/obj/machinery/shield_capacitor"
 	origin_tech = "magnets=3;powerstorage=4"
-	frame_desc = "Requires 2 Pico Manipulators, 1 Subspace Filter, 5 Pieces of cable, 1 Subspace Treatment disk, 1 Subspace Analyzer and 1 Console Screen."
+	frame_desc = "Requires 2 Pico Manipulators, 1 Subspace d_filter, 5 Pieces of cable, 1 Subspace Treatment disk, 1 Subspace Analyzer and 1 Console Screen."
 	req_components = list(
 							"/obj/item/weapon/stock_parts/manipulator/pico" = 2,
-							"/obj/item/weapon/stock_parts/subspace/filter" = 1,
+							"/obj/item/weapon/stock_parts/subspace/d_filter" = 1,
 							"/obj/item/weapon/stock_parts/subspace/treatment" = 1,
 							"/obj/item/weapon/stock_parts/subspace/analyzer" = 1,
 							"/obj/item/weapon/stock_parts/console_screen" = 1,

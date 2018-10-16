@@ -1,6 +1,6 @@
-// *** pipefilter
+// *** piped_filter
 
-/obj/machinery/pipefilter/New()
+/obj/machinery/piped_filter/New()
 	..()
 	p_dir = (NORTH|SOUTH|EAST|WEST) ^ turn(dir, 180)
 
@@ -12,7 +12,7 @@
 
 	gasflowlist += src
 
-/obj/machinery/pipefilter/buildnodes()
+/obj/machinery/piped_filter/buildnodes()
 	var/turf/T = src.loc
 
 	n1dir = turn(dir, 90)
@@ -26,11 +26,11 @@
 	if(node2) vnode2 = node2.getline()
 	if(node3) vnode3 = node3.getline()
 
-/obj/machinery/pipefilter/gas_flow()
+/obj/machinery/piped_filter/gas_flow()
 	gas.copy_from(ngas)
 	f_gas.copy_from(f_ngas)
 
-/obj/machinery/pipefilter/process()
+/obj/machinery/piped_filter/process()
 /*	var/delta_gt
 
 	if(vnode1)
@@ -58,13 +58,13 @@
 	AutoUpdateAI(src)
 	src.updateUsrDialog()*/ //TODO: FIX
 
-/obj/machinery/pipefilter/get_gas_val(from)
+/obj/machinery/piped_filter/get_gas_val(from)
 	return ((from == vnode3) ? f_gas.total_moles() : gas.total_moles())/capmult
 
-/obj/machinery/pipefilter/get_gas(from)
+/obj/machinery/piped_filter/get_gas(from)
 	return (from == vnode3) ? f_gas : gas
 
-/obj/machinery/pipefilter/proc/leak_to_turf(var/port)
+/obj/machinery/piped_filter/proc/leak_to_turf(var/port)
 	var/turf/T
 
 	switch(port)
@@ -88,7 +88,7 @@
 
 	flow_to_turf(gas, ngas, T)
 
-/obj/machinery/pipefilter/proc/get_extract()
+/obj/machinery/piped_filter/proc/get_extract()
 	/*
 	var/datum/gas_mixture/ndelta = new()
 	if (src.f_mask & GAS_O2)
@@ -104,7 +104,7 @@
 	return ndelta
 	*/ //TODO: FIX
 
-/obj/machinery/pipefilter/attackby(obj/item/weapon/W, mob/user as mob)
+/obj/machinery/piped_filter/attackby(obj/item/weapon/W, mob/user as mob)
 	if(istype(W, /obj/item/weapon/detective_scanner))
 		return ..()
 	if(istype(W, /obj/item/weapon/screwdriver))
@@ -145,28 +145,28 @@
 		src.add_fingerprint(user)
 		for(var/mob/O in viewers(user, null))
 			O.show_message(text("\red [] has shorted out the [] with an electromagnetic card!", user, src), 1)
-		src.overlays += image('icons/obj/pipes2.dmi', "filter-spark")
+		src.overlays += image('icons/obj/pipes2.dmi', "d_filter-spark")
 		sleep(6)
 		src.updateicon()
 		return src.attack_hand(user)
 	return src.attack_hand(user)
 
-// pipefilter interact/topic
-/obj/machinery/pipefilter/attack_paw(mob/user as mob)
+// piped_filter interact/topic
+/obj/machinery/piped_filter/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/pipefilter/attack_ai(mob/user as mob)
+/obj/machinery/piped_filter/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/pipefilter/attack_hand(mob/user as mob)
+/obj/machinery/piped_filter/attack_hand(mob/user as mob)
 /*	if(stat & NOPOWER)
-		user << browse(null, "window=pipefilter")
+		user << browse(null, "window=piped_filter")
 		user.machine = null
 		return
 
 	var/list/gases = list("O2", "N2", "Plasma", "CO2", "N2O")
 	user.machine = src
-	var/dat = "Filter Release Rate:<BR>\n<A href='?src=\ref[src];fp=-[num2text(src.maxrate, 9)]'>M</A> <A href='?src=\ref[src];fp=-100000'>-</A> <A href='?src=\ref[src];fp=-10000'>-</A> <A href='?src=\ref[src];fp=-1000'>-</A> <A href='?src=\ref[src];fp=-100'>-</A> <A href='?src=\ref[src];fp=-1'>-</A> [src.f_per] <A href='?src=\ref[src];fp=1'>+</A> <A href='?src=\ref[src];fp=100'>+</A> <A href='?src=\ref[src];fp=1000'>+</A> <A href='?src=\ref[src];fp=10000'>+</A> <A href='?src=\ref[src];fp=100000'>+</A> <A href='?src=\ref[src];fp=[num2text(src.maxrate, 9)]'>M</A><BR>\n"
+	var/dat = "d_filter Release Rate:<BR>\n<A href='?src=\ref[src];fp=-[num2text(src.maxrate, 9)]'>M</A> <A href='?src=\ref[src];fp=-100000'>-</A> <A href='?src=\ref[src];fp=-10000'>-</A> <A href='?src=\ref[src];fp=-1000'>-</A> <A href='?src=\ref[src];fp=-100'>-</A> <A href='?src=\ref[src];fp=-1'>-</A> [src.f_per] <A href='?src=\ref[src];fp=1'>+</A> <A href='?src=\ref[src];fp=100'>+</A> <A href='?src=\ref[src];fp=1000'>+</A> <A href='?src=\ref[src];fp=10000'>+</A> <A href='?src=\ref[src];fp=100000'>+</A> <A href='?src=\ref[src];fp=[num2text(src.maxrate, 9)]'>M</A><BR>\n"
 	for (var/i = 1; i <= gases.len; i++)
 		dat += "[gases[i]]: <A HREF='?src=\ref[src];tg=[1 << (i - 1)]'>[(src.f_mask & 1 << (i - 1)) ? "Releasing" : "Passing"]</A><BR>\n"
 	if(gas.total_moles())
@@ -183,17 +183,17 @@
 		dat += "<BR>Gas Levels: <BR>\nPressure: 0%<BR>\nNitrogen: 0%<BR>\nOxygen: 0%<BR>\nPlasma: 0%<BR>\nCO2: 0%<BR>\nN2O: 0%<BR>\n"
 	dat += "<BR>\n<A href='?src=\ref[src];close=1'>Close</A><BR>\n"
 
-	user << browse(dat, "window=pipefilter;size=300x365")*/ //TODO: FIX
-	//onclose(user, "pipefilter")
+	user << browse(dat, "window=piped_filter;size=300x365")*/ //TODO: FIX
+	//onclose(user, "piped_filter")
 
-/obj/machinery/pipefilter/Topic(href, href_list)
+/obj/machinery/piped_filter/Topic(href, href_list)
 	..()
 	if(usr.restrained() || usr.lying)
 		return
 	if ((((get_dist(src, usr) <= 1 || usr.telekinesis == 1) || istype(usr, /mob/living/silicon/ai)) && istype(src.loc, /turf)))
 		usr.machine = src
 		if (href_list["close"])
-			usr << browse(null, "window=pipefilter;")
+			usr << browse(null, "window=piped_filter;")
 			usr.machine = null
 			return
 		if (src.allowed(usr) || src.emagged || src.bypassed)
@@ -209,35 +209,35 @@
 		src.updateUsrDialog()
 		src.add_fingerprint(usr)
 	else
-		usr << browse(null, "window=pipefilter")
+		usr << browse(null, "window=piped_filter")
 		usr.machine = null
 		return
 
-/obj/machinery/pipefilter/power_change()
+/obj/machinery/piped_filter/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	spawn(rand(1,15))	//so all the filters don't come on at once
+	spawn(rand(1,15))	//so all the d_filters don't come on at once
 		updateicon()
 
-/obj/machinery/pipefilter/proc/updateicon()
+/obj/machinery/piped_filter/proc/updateicon()
 	src.overlays.Cut()
 	if(stat & NOPOWER)
-		icon_state = "filter-off"
+		icon_state = "d_filter-off"
 	else
-		icon_state = "filter"
+		icon_state = "d_filter"
 		if(emagged)	//only show if powered because presumeably its the interface that has been fried
-			src.overlays += image('icons/obj/pipes2.dmi', "filter-emag")
+			src.overlays += image('icons/obj/pipes2.dmi', "d_filter-emag")
 		if (src.f_mask & (GAS_N2O|GAS_PL))
-			src.overlays += image('icons/obj/pipes2.dmi', "filter-tox")
+			src.overlays += image('icons/obj/pipes2.dmi', "d_filter-tox")
 		if (src.f_mask & GAS_O2)
-			src.overlays += image('icons/obj/pipes2.dmi', "filter-o2")
+			src.overlays += image('icons/obj/pipes2.dmi', "d_filter-o2")
 		if (src.f_mask & GAS_N2)
-			src.overlays += image('icons/obj/pipes2.dmi', "filter-n2")
+			src.overlays += image('icons/obj/pipes2.dmi', "d_filter-n2")
 		if (src.f_mask & GAS_CO2)
-			src.overlays += image('icons/obj/pipes2.dmi', "filter-co2")
+			src.overlays += image('icons/obj/pipes2.dmi', "d_filter-co2")
 	if(!locked)
-		src.overlays += image('icons/obj/pipes2.dmi', "filter-open")
+		src.overlays += image('icons/obj/pipes2.dmi', "d_filter-open")
 		if(bypassed)	//should only be bypassed if unlocked
-			src.overlays += image('icons/obj/pipes2.dmi', "filter-bypass")
+			src.overlays += image('icons/obj/pipes2.dmi', "d_filter-bypass")

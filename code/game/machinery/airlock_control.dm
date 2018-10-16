@@ -60,7 +60,7 @@ obj/machinery/door/airlock/proc/send_status()
 		signal.data["door_status"] = density?("closed"):("open")
 		signal.data["lock_status"] = locked?("locked"):("unlocked")
 
-		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, d_filter = RADIO_AIRLOCK)
 
 
 obj/machinery/door/airlock/open(surpress_send)
@@ -88,9 +88,9 @@ obj/machinery/door/airlock/Bumped(atom/AM)
 
 			signal.data["bumped_with_access"] = 1
 
-			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, d_filter = RADIO_AIRLOCK)
 	return
-		
+
 obj/machinery/door/airlock/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
 	if(new_frequency)
@@ -147,7 +147,7 @@ obj/machinery/airlock_sensor/attack_hand(mob/user)
 	signal.data["tag"] = master_tag
 	signal.data["command"] = "cycle"
 
-	radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+	radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, d_filter = RADIO_AIRLOCK)
 	flick("airlock_sensor_cycle", src)
 
 obj/machinery/airlock_sensor/process()
@@ -164,7 +164,7 @@ obj/machinery/airlock_sensor/process()
 
 		signal.data["pressure"] = num2text(pressure)
 
-		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, d_filter = RADIO_AIRLOCK)
 
 	update_icon()
 
@@ -220,7 +220,7 @@ obj/machinery/access_button/attack_hand(mob/user)
 		signal.data["tag"] = master_tag
 		signal.data["command"] = command
 
-		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, d_filter = RADIO_AIRLOCK)
 	flick("access_button_cycle", src)
 
 

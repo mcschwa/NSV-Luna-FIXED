@@ -476,8 +476,8 @@
 // contents will be items flushed by the disposal
 // this allows the gas flushed to be tracked
 #define PROCESS_P 0
-#define NOT_FILTERED 1
-#define FILTERED 2
+#define NOT_d_filterED 1
+#define d_filterED 2
 
 /obj/structure/disposalholder
 	invisibility = 101
@@ -1162,7 +1162,7 @@
 	nextdir(var/fromdir, var/obj/structure/disposalholder/H)
 		//var/flipdir = turn(fromdir, 180)
 		if(fromdir != sortdir)	// probably came from the negdir
-			if(H.sort_status==FILTERED) //if destination matches filtered type...
+			if(H.sort_status==d_filterED) //if destination matches d_filtered type...
 				return sortdir		// exit through sortdirection
 			else
 				return posdir
@@ -1181,7 +1181,7 @@
 				if(A.sortTag in sortType)
 					sort_list+=A
 					if(H.sort_status==PROCESS_P)
-						H.sort_status = FILTERED
+						H.sort_status = d_filterED
 					continue
 
 			if(istype(AM,/obj/item/smallDelivery))
@@ -1189,14 +1189,14 @@
 				if(A.sortTag in sortType)
 					sort_list+=A
 					if(H.sort_status==PROCESS_P)
-						H.sort_status = FILTERED
+						H.sort_status = d_filterED
 					continue
 
-			H.sort_status = NOT_FILTERED
+			H.sort_status = NOT_d_filterED
 
-		if(H.sort_status==NOT_FILTERED&&sort_list.len)
+		if(H.sort_status==NOT_d_filterED&&sort_list.len)
 			var/obj/structure/disposalholder/Hd = new()
-			Hd.sort_status = FILTERED
+			Hd.sort_status = d_filterED
 			Hd.loc = src
 			Hd.dir = H.dir
 			Hd.active = 1
@@ -1272,20 +1272,20 @@
 			if(istype(AM,/obj/structure/bigDelivery))
 				sort_list+=AM
 				if(H.sort_status==PROCESS_P)
-					H.sort_status = FILTERED
+					H.sort_status = d_filterED
 				continue
 
 			if(istype(AM,/obj/item/smallDelivery))
 				sort_list+=AM
 				if(H.sort_status==PROCESS_P)
-					H.sort_status = FILTERED
+					H.sort_status = d_filterED
 				continue
 
-			H.sort_status = NOT_FILTERED
+			H.sort_status = NOT_d_filterED
 
-		if(H.sort_status==NOT_FILTERED&&sort_list.len)
+		if(H.sort_status==NOT_d_filterED&&sort_list.len)
 			var/obj/structure/disposalholder/Hd = new()
-			Hd.sort_status = FILTERED
+			Hd.sort_status = d_filterED
 			Hd.loc = src
 			Hd.dir = H.dir
 			Hd.active = 1
@@ -1302,7 +1302,7 @@
 		//var/flipdir = turn(fromdir, 180)
 		if(H.dir != sortdir)	// probably came from the negdir
 
-			if(H.sort_status == FILTERED) //if destination matches filtered type...
+			if(H.sort_status == d_filterED) //if destination matches d_filtered type...
 				return sortdir		// exit through sortdirection
 			else
 				return posdir

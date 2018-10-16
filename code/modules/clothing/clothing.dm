@@ -175,7 +175,7 @@ BLIND     // can't see anything
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
 
-/obj/item/clothing/mask/proc/filter_air(datum/gas_mixture/air)
+/obj/item/clothing/mask/proc/d_filter_air(datum/gas_mixture/air)
 	return
 
 //Shoes

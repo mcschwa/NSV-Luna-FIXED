@@ -5,17 +5,17 @@
   Note that walkie-talkie, intercoms and headsets handle transmission using nonstandard way.
   procs:
 
-    add_object(obj/device as obj, var/new_frequency as num, var/filter as text|null = null)
+    add_object(obj/device as obj, var/new_frequency as num, var/d_filter as text|null = null)
       Adds listening object.
       parameters:
         device - device receiving signals, must have proc receive_signal (see description below).
           one device may listen several frequencies, but not same frequency twice.
         new_frequency - see possibly frequencies below;
-        filter - thing for optimization. Optional, but recommended.
-                 All filters should be consolidated in this file, see defines later.
-                 Device without listening filter will receive all signals (on specified frequency).
-                 Device with filter will receive any signals sent without filter.
-                 Device with filter will not receive any signals sent with different filter.
+        d_filter - thing for optimization. Optional, but recommended.
+                 All d_filters should be consolidated in this file, see defines later.
+                 Device without listening d_filter will receive all signals (on specified frequency).
+                 Device with d_filter will receive any signals sent without d_filter.
+                 Device with d_filter will not receive any signals sent with different d_filter.
       returns:
        Reference to frequency object.
 
@@ -30,12 +30,12 @@
   radio_frequency is a global object maintaining list of devices that listening specific frequency.
   procs:
 
-    post_signal(obj/source as obj|null, datum/signal/signal, var/filter as text|null = null, var/range as num|null = null)
+    post_signal(obj/source as obj|null, datum/signal/signal, var/d_filter as text|null = null, var/range as num|null = null)
       Sends signal to all devices that wants such signal.
       parameters:
         source - object, emitted signal. Usually, devices will not receive their own signals.
         signal - see description below.
-        filter - described above.
+        d_filter - described above.
         range - radius of regular byond's square circle on that z-level. null means everywhere, on all z-levels.
 
   obj/proc/receive_signal(datum/signal/signal, var/receive_method as num, var/receive_param)
@@ -127,7 +127,7 @@ var/const/SUP_FREQ = 1347
 #define TRANSMISSION_WIRE	0
 #define TRANSMISSION_RADIO	1
 
-/* filters */
+/* d_filters */
 var/const/RADIO_TO_AIRALARM = "radio_airalarm" //air alarms
 var/const/RADIO_FROM_AIRALARM = "radio_airalarm_rcvr" //devices interested in recieving signals from air alarms
 var/const/RADIO_CHAT = "radio_telecoms"
@@ -147,7 +147,7 @@ var/global/datum/controller/radio/radio_controller
 datum/controller/radio
 	var/list/datum/radio_frequency/frequencies = list()
 
-	proc/add_object(obj/device as obj, var/new_frequency as num, var/filter = null as text|null)
+	proc/add_object(obj/device as obj, var/new_frequency as num, var/d_filter = null as text|null)
 		var/f_text = num2text(new_frequency)
 		var/datum/radio_frequency/frequency = frequencies[f_text]
 
@@ -158,7 +158,7 @@ datum/controller/radio
 
 
 //		world << "Adding listener to frequency [f_text]"
-		frequency.add_listener(device, filter)
+		frequency.add_listener(device, d_filter)
 		return frequency
 
 	proc/remove_object(obj/device, old_frequency)
@@ -190,8 +190,8 @@ datum/radio_frequency
 	var/list/list/obj/devices = list()
 
 	proc
-		post_signal(obj/source as obj|null, datum/signal/signal, var/filter = null as text|null, var/range = null as num|null)
-			//log_admin("DEBUG \[[world.timeofday]\]: post_signal {source=\"[source]\", [signal.debug_print()], filter=[filter]}")
+		post_signal(obj/source as obj|null, datum/signal/signal, var/d_filter = null as text|null, var/range = null as num|null)
+			//log_admin("DEBUG \[[world.timeofday]\]: post_signal {source=\"[source]\", [signal.debug_print()], d_filter=[d_filter]}")
 //			var/N_f=0
 //			var/N_nf=0
 //			var/Nt=0
@@ -201,8 +201,8 @@ datum/radio_frequency
 				if(!start_point)
 					del(signal)
 					return 0
-			if (filter) //here goes some copypasta. It is for optimisation. -rastaf0
-				for(var/obj/device in devices[filter])
+			if (d_filter) //here goes some copypasta. It is for optimisation. -rastaf0
+				for(var/obj/device in devices[d_filter])
 					if(device == source)
 						continue
 					if(range)
@@ -226,10 +226,10 @@ datum/radio_frequency
 					device.receive_signal(signal, TRANSMISSION_RADIO, frequency)
 //					N_f++
 			else
-				for (var/next_filter in devices)
-//					var/list/obj/DDD = devices[next_filter]
+				for (var/next_d_filter in devices)
+//					var/list/obj/DDD = devices[next_d_filter]
 //					Nt+=DDD.len
-					for(var/obj/device in devices[next_filter])
+					for(var/obj/device in devices[next_d_filter])
 						if(device == source)
 							continue
 						if(range)
@@ -242,36 +242,36 @@ datum/radio_frequency
 						device.receive_signal(signal, TRANSMISSION_RADIO, frequency)
 //						N_nf++
 
-//			log_admin("DEBUG: post_signal(source=[source] ([source.x], [source.y], [source.z]),filter=[filter]) frequency=[frequency], N_f=[N_f], N_nf=[N_nf]")
+//			log_admin("DEBUG: post_signal(source=[source] ([source.x], [source.y], [source.z]),d_filter=[d_filter]) frequency=[frequency], N_f=[N_f], N_nf=[N_nf]")
 
 
 //			del(signal)
 
-		add_listener(obj/device as obj, var/filter as text|null)
-			if (!filter)
-				filter = "_default"
-			//log_admin("add_listener(device=[device],filter=[filter]) frequency=[frequency]")
-			var/list/obj/devices_line = devices[filter]
+		add_listener(obj/device as obj, var/d_filter as text|null)
+			if (!d_filter)
+				d_filter = "_default"
+			//log_admin("add_listener(device=[device],d_filter=[d_filter]) frequency=[frequency]")
+			var/list/obj/devices_line = devices[d_filter]
 			if (!devices_line)
 				devices_line = new
-				devices[filter] = devices_line
+				devices[d_filter] = devices_line
 //				world << "Added device to frequency [frequency]: [device.name]"
 			if(!(device in devices_line))
 				devices_line+=device
 //			world << "Added device to frequency [frequency]: [device.name]"
-//			var/list/obj/devices_line___ = devices[filter_str]
+//			var/list/obj/devices_line___ = devices[d_filter_str]
 //			var/l = devices_line___.len
 			//log_admin("DEBUG: devices_line.len=[devices_line.len]")
-			//log_admin("DEBUG: devices(filter_str).len=[l]")
+			//log_admin("DEBUG: devices(d_filter_str).len=[l]")
 
 		remove_listener(obj/device)
-			for (var/devices_filter in devices)
-				var/list/devices_line = devices[devices_filter]
+			for (var/devices_d_filter in devices)
+				var/list/devices_line = devices[devices_d_filter]
 				devices_line-=device
 				while (null in devices_line)
 					devices_line -= null
 				if (devices_line.len==0)
-					devices -= devices_filter
+					devices -= devices_d_filter
 					del(devices_line)
 
 

@@ -10,13 +10,13 @@ obj/machinery/atmospherics/trinary/filter
 	var/on = 0
 	var/temp = null // -- TLE
 
-	var/set_flow_rate = ATMOS_DEFAULT_VOLUME_FILTER
+	var/set_flow_rate = ATMOS_DEFAULT_VOLUME_d_filter
 
 	var/target_pressure = ONE_ATMOSPHERE
 
 	var/filter_type = 0
 /*
-Filter types:
+filter types:
 -1: Nothing
  0: Carbon Molecules: Plasma Toxin, Oxygen Agent B
  1: Oxygen: Oxygen ONLY
@@ -50,9 +50,9 @@ Filter types:
 			if(4)//removing N2O
 				filtered_out = list("sleeping_agent")
 
-		air1.volume = ATMOS_DEFAULT_VOLUME_FILTER
-		air2.volume = ATMOS_DEFAULT_VOLUME_FILTER
-		air3.volume = ATMOS_DEFAULT_VOLUME_FILTER
+		air1.volume = ATMOS_DEFAULT_VOLUME_d_filter
+		air2.volume = ATMOS_DEFAULT_VOLUME_d_filter
+		air3.volume = ATMOS_DEFAULT_VOLUME_d_filter
 
 		if(radio_controller)
 			initialize()
@@ -86,8 +86,8 @@ Filter types:
 		var/transfer_moles = (set_flow_rate/air1.volume)*air1.total_moles
 
 		var/power_draw = -1
-		if (transfer_moles > MINUMUM_MOLES_TO_FILTER)
-			power_draw = filter_gas(src, filtered_out, air1, air2, air3, transfer_moles, active_power_usage)
+		if (transfer_moles > MINUMUM_MOLES_TO_d_filter)
+			power_draw = d_filter_gas(src, filtered_out, air1, air2, air3, transfer_moles, active_power_usage)
 
 			if(network2)
 				network2.update = 1
@@ -163,8 +163,8 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 
 	dat += {"
 			<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
-			<b>Filtering: </b>[current_filter_type]<br><HR>
-			<h4>Set Filter Type:</h4>
+			<b>filtering: </b>[current_filter_type]<br><HR>
+			<h4>Set filter Type:</h4>
 			<A href='?src=\ref[src];filterset=0'>Carbon Molecules</A><BR>
 			<A href='?src=\ref[src];filterset=1'>Oxygen</A><BR>
 			<A href='?src=\ref[src];filterset=2'>Nitrogen</A><BR>

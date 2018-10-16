@@ -1,5 +1,5 @@
 /*
- * Holds procs designed to help with filtering text
+ * Holds procs designed to help with d_filtering text
  * Contains groups:
  *			SQL sanitization
  *			Text sanitization
@@ -80,7 +80,7 @@ proc/sanitize_PDA(var/msg)
 	var/name = input(user, message, title, default)
 	return strip_html_simple(name, max_length)
 
-//Filters out undesirable characters from names
+//d_filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
 	if(!t_in || length(t_in) > max_length)
 		return //Rejects the input if it is null or if it is longer then the max length allowed

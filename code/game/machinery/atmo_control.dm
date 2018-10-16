@@ -56,7 +56,7 @@ obj/machinery/air_sensor
 				signal.data["nitrogen"] = 0
 				signal.data["carbon_dioxide"] = 0
 		signal.data["sigtype"]="status"
-		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+		radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 
 /obj/machinery/air_sensor/proc/set_frequency(new_frequency)
@@ -278,7 +278,7 @@ Max Output Pressure: [output_pressure] kPa<BR>"}
 				signal.data = list ("tag" = output_tag, "set_internal_pressure" = "[pressure_setting]")
 
 			signal.data["sigtype"]="command"
-			radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+			radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 			spawn(5)
 				src.updateUsrDialog()
@@ -353,7 +353,7 @@ Max Output Pressure: [output_pressure] kPa<BR>"}
 					"sigtype"="command"
 				)
 
-				radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+				radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 			..()
 
@@ -406,7 +406,7 @@ Rate: [volume_rate] L/sec<BR>"}
 					"status",
 					"sigtype"="command"
 				)
-				radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+				radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 			if(href_list["toggle_automation"])
 				automation = !automation
@@ -425,7 +425,7 @@ Rate: [volume_rate] L/sec<BR>"}
 					"sigtype"="command"
 				)
 
-				radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+				radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 			if(href_list["injection"])
 				if(!radio_connection)
@@ -440,7 +440,7 @@ Rate: [volume_rate] L/sec<BR>"}
 					"sigtype"="command"
 				)
 
-				radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+				radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 
 

@@ -39,8 +39,8 @@ client
 		body += {"<script type="text/javascript">
 
 					function updateSearch(){
-						var filter_text = document.getElementById('filter');
-						var filter = filter_text.value.toLowerCase();
+						var d_filter_text = document.getElementById('d_filter');
+						var d_filter = d_filter_text.value.toLowerCase();
 
 						if(event.keyCode == 13){	//Enter / return
 							var vars_ol = document.getElementById('vars');
@@ -103,13 +103,13 @@ client
 							return
 						}
 
-						//This part here resets everything to how it was at the start so the filter is applied to the complete list. Screw efficiency, it's client-side anyway and it only looks through 200 or so variables at maximum anyway (mobs).
+						//This part here resets everything to how it was at the start so the d_filter is applied to the complete list. Screw efficiency, it's client-side anyway and it only looks through 200 or so variables at maximum anyway (mobs).
 						if(complete_list != null && complete_list != ""){
 							var vars_ol1 = document.getElementById("vars");
 							vars_ol1.innerHTML = complete_list
 						}
 
-						if(filter.value == ""){
+						if(d_filter.value == ""){
 							return;
 						}else{
 							var vars_ol = document.getElementById('vars');
@@ -119,7 +119,7 @@ client
 							{
 								try{
 									var li = lis\[i\];
-									if ( li.innerText.toLowerCase().indexOf(filter) == -1 )
+									if ( li.innerText.toLowerCase().indexOf(d_filter) == -1 )
 									{
 										vars_ol.removeChild(li);
 										i--;
@@ -142,9 +142,9 @@ client
 
 
 					function selectTextField(){
-						var filter_text = document.getElementById('filter');
-						filter_text.focus();
-						filter_text.select();
+						var d_filter_text = document.getElementById('d_filter');
+						d_filter_text.focus();
+						d_filter_text.select();
 
 					}
 
@@ -291,7 +291,7 @@ client
 		body += "<b>C</b> - Change, asks you for the var type first.<br>"
 		body += "<b>M</b> - Mass modify: changes this variable for all objects of this type.</font><br>"
 
-		body += "<hr><table width='100%'><tr><td width='20%'><div align='center'><b>Search:</b></div></td><td width='80%'><input type='text' id='filter' name='filter_text' value='' style='width:100%;'></td></tr></table><hr>"
+		body += "<hr><table width='100%'><tr><td width='20%'><div align='center'><b>Search:</b></div></td><td width='80%'><input type='text' id='d_filter' name='d_filter_text' value='' style='width:100%;'></td></tr></table><hr>"
 
 		body += "<ol id='vars'>"
 

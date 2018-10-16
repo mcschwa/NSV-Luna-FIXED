@@ -233,7 +233,7 @@
 
 
 		if(path) // check for default path
-			filter_path() // renders rpath
+			d_filter_path() // renders rpath
 
 
 	process()
@@ -307,7 +307,7 @@
 
 			// Broadcast the signal
 
-			radio_connection.post_signal(src, signal, filter = RADIO_MAGNETS)
+			radio_connection.post_signal(src, signal, d_filter = RADIO_MAGNETS)
 
 			spawn(1)
 				updateUsrDialog() // pretty sure this increases responsiveness
@@ -328,7 +328,7 @@
 						moving = 0 // stop moving
 						path = newpath
 						pathpos = 1 // reset position
-						filter_path() // renders rpath
+						d_filter_path() // renders rpath
 
 				if("togglemoving")
 					moving = !moving
@@ -374,7 +374,7 @@
 
 			// Broadcast the signal
 			spawn()
-				radio_connection.post_signal(src, signal, filter = RADIO_MAGNETS)
+				radio_connection.post_signal(src, signal, d_filter = RADIO_MAGNETS)
 
 			if(speed == 10)
 				sleep(1)
@@ -384,7 +384,7 @@
 		looping = 0
 
 
-	proc/filter_path()
+	proc/d_filter_path()
 		// Generates the rpath variable using the path string, think of this as "string2list"
 		// Doesn't use params2list() because of the akward way it stacks entities
 		rpath = list() //  clear rpath

@@ -29,14 +29,14 @@
 		hide(T.intact)
 		spawn(10)	// must wait for map loading to finish, copied it here because of player-created beacons
 			if(radio_controller)
-				radio_controller.add_object(src, freq, filter = RADIO_NAVBEACONS)
+				radio_controller.add_object(src, freq, d_filter = RADIO_NAVBEACONS)
 
 
 
 	initialize()
 		spawn(10)	// must wait for map loading to finish
 			if(radio_controller)
-				radio_controller.add_object(src, freq, filter = RADIO_NAVBEACONS)
+				radio_controller.add_object(src, freq, d_filter = RADIO_NAVBEACONS)
 
 
 	// set the transponder codes assoc list from codes_txt
@@ -104,7 +104,7 @@
 		for(var/key in codes)
 			signal.data[key] = codes[key]
 
-		frequency.post_signal(src, signal, filter = RADIO_NAVBEACONS)
+		frequency.post_signal(src, signal, d_filter = RADIO_NAVBEACONS)
 
 
 	attackby(var/obj/item/I, var/mob/user)

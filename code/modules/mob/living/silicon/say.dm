@@ -176,7 +176,7 @@
 				M.show_message(rendered_a, 2)
 			else//If they do not.
 				M.show_message(rendered_b, 2)
-		/*Radios "filter out" this conversation channel so we don't need to account for them.
+		/*Radios "d_filter out" this conversation channel so we don't need to account for them.
 		This is another way of saying that we won't bother dealing with them.*/
 	else
 		src << "No holopad connected."

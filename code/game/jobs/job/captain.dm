@@ -13,7 +13,9 @@
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 14
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
+		..()
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/captain(H), slot_back)
@@ -44,8 +46,6 @@
 	get_access()
 		return get_all_accesses()
 
-
-
 /datum/job/hop
 	title = "Head of Personnel"
 	flag = HOP
@@ -73,7 +73,9 @@
 
 
 	equip(var/mob/living/carbon/human/H)
-		if(!H)	return 0
+		if(!H)
+			return 0
+		..()
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hop(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)

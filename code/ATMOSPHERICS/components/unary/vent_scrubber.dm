@@ -25,8 +25,8 @@
 	var/panic = 0 //is this scrubber panicked?
 
 	var/area_uid
-	var/radio_filter_out
-	var/radio_filter_in
+	var/radio_d_filter_out
+	var/radio_d_filter_in
 	New()
 		initial_loc = get_area(loc)
 		if (initial_loc.master)
@@ -54,7 +54,7 @@
 		set_frequency(new_frequency)
 			radio_controller.remove_object(src, frequency)
 			frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, frequency, radio_filter_in)
+			radio_connection = radio_controller.add_object(src, frequency, radio_d_filter_in)
 
 		broadcast_status()
 			if(!radio_connection)
@@ -71,9 +71,9 @@
 				"power" = on,
 				"scrubbing" = scrubbing,
 				"panic" = panic,
-				"filter_co2" = ("carbon_dioxide" in scrubbing_gas),
-				"filter_toxins" = ("plasma" in scrubbing_gas),
-				"filter_n2o" = ("sleeping_agent" in scrubbing_gas),
+				"d_filter_co2" = ("carbon_dioxide" in scrubbing_gas),
+				"d_filter_toxins" = ("plasma" in scrubbing_gas),
+				"d_filter_n2o" = ("sleeping_agent" in scrubbing_gas),
 				"sigtype" = "status"
 			)
 			if(!initial_loc.air_scrub_names[id_tag])
@@ -81,14 +81,14 @@
 				initial_loc.air_scrub_names[id_tag] = new_name
 				src.name = new_name
 			initial_loc.air_scrub_info[id_tag] = signal.data
-			radio_connection.post_signal(src, signal, radio_filter_out)
+			radio_connection.post_signal(src, signal, radio_d_filter_out)
 
 			return 1
 
 	initialize()
 		..()
-		radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
-		radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
+		radio_d_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
+		radio_d_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
 		if (frequency)
 			set_frequency(frequency)
 

@@ -1,6 +1,6 @@
 /obj/item/clothing/mask/gas
 	name = "gas mask"
-	desc = "A face-covering mask that can be connected to an air supply. Filters harmful gases from the air."
+	desc = "A face-covering mask that can be connected to an air supply. d_filters harmful gases from the air."
 	icon_state = "gas_mask"
 	flags = FPRINT | TABLEPASS | MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
@@ -9,26 +9,26 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	siemens_coefficient = 0.9
-	var/gas_filter_strength = 1			//For gas mask filters
-	var/list/filtered_gases = list("plasma", "sleeping_agent")
+	var/gas_d_filter_strength = 1			//For gas mask d_filters
+	var/list/d_filtered_gases = list("plasma", "sleeping_agent")
 
-/obj/item/clothing/mask/gas/filter_air(datum/gas_mixture/air)
-	var/datum/gas_mixture/filtered = new
+/obj/item/clothing/mask/gas/d_filter_air(datum/gas_mixture/air)
+	var/datum/gas_mixture/d_filtered = new
 
-	for(var/g in filtered_gases)
+	for(var/g in d_filtered_gases)
 		if(air.gas[g])
-			filtered.gas[g] = air.gas[g] * gas_filter_strength
-			air.gas[g] -= filtered.gas[g]
+			d_filtered.gas[g] = air.gas[g] * gas_d_filter_strength
+			air.gas[g] -= d_filtered.gas[g]
 
 	air.update_values()
-	filtered.update_values()
+	d_filtered.update_values()
 
-	return filtered
+	return d_filtered
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
 	name = "plague doctor mask"
-	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
+	desc = "A modernised version of the classic design, this mask will not only d_filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
 	armor = list(melee = 0, bullet = 0, laser = 2,energy = 2, bomb = 0, bio = 75, rad = 0)
@@ -55,7 +55,7 @@
 
 /obj/item/clothing/mask/gas/voice/space_ninja
 	name = "ninja mask"
-	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
+	desc = "A close-fitting mask that acts both as an air d_filter and a post-modern fashion statement."
 	icon_state = "s-ninja"
 	item_state = "s-ninja_mask"
 	vchange = 1

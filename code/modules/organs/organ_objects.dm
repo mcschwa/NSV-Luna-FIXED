@@ -128,7 +128,7 @@
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
-	prosthetic_name = "toxin filter"
+	prosthetic_name = "toxin d_filter"
 	prosthetic_icon = "liver-prosthetic"
 	organ_tag = "liver"
 	organ_data = /datum/organ/internal/liver
@@ -161,7 +161,7 @@
 	organ_data = /datum/organ/internal/lungs/robotic
 
 /obj/item/organ/liver/prosthetic
-	name = "toxin filter"
+	name = "toxin d_filter"
 	icon_state = "liver-prosthetic"
 	organ_data = /datum/organ/internal/lungs/robotic
 

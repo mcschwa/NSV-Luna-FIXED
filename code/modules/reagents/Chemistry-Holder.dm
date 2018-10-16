@@ -28,7 +28,7 @@ datum/reagents/New(maximum=100)
 			chemical_reagents_list[D.id] = D
 	if(!chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
-		// It is filtered into multiple lists within a list.
+		// It is d_filtered into multiple lists within a list.
 		// For example:
 		// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
 
@@ -44,7 +44,7 @@ datum/reagents/New(maximum=100)
 				for(var/reaction in D.required_reagents)
 					reaction_ids += reaction
 
-			// Create filters based on each reagent id in the required reagents list
+			// Create d_filters based on each reagent id in the required reagents list
 			for(var/id in reaction_ids)
 				if(!chemical_reactions_list[id])
 					chemical_reactions_list[id] = list()
@@ -263,7 +263,7 @@ datum/reagents/proc/handle_reactions()
 	do
 		reaction_occured = 0
 		for(var/datum/reagent/R in reagent_list) // Usually a small list
-			for(var/reaction in chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we d_filtered it with our reagent id
 
 				if(!reaction)
 					continue

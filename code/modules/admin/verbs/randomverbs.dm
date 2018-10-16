@@ -168,7 +168,7 @@ Ccomp's first proc.
 	var/list/sortmob = sortAtom(mob_list)                           // get the mob list.
 	var/any=0
 	for(var/mob/dead/observer/M in sortmob)
-		mobs.Add(M)                                             //filter it where it's only ghosts
+		mobs.Add(M)                                             //d_filter it where it's only ghosts
 		any = 1                                                 //if no ghosts show up, any will just be 0
 	if(!any)
 		if(notify)

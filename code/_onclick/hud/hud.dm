@@ -14,7 +14,7 @@ var/datum/global_hud/global_hud = new()
 	var/obj/screen/blurry
 	var/list/vimpaired
 	var/list/darkMask
-	//Mask filters
+	//Mask d_filters
 	var/obj/screen/g_dither = null
 	var/obj/screen/r_dither = null
 	var/obj/screen/gray_dither = null
@@ -36,7 +36,7 @@ var/datum/global_hud/global_hud = new()
 	blurry.layer = 17
 	blurry.mouse_opacity = 0
 
-	//Green filter for the gasmask
+	//Green d_filter for the gasmask
 	g_dither = new /obj/screen()
 	g_dither.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	g_dither.name = "gasmask"
@@ -44,7 +44,7 @@ var/datum/global_hud/global_hud = new()
 	g_dither.layer = 17
 	g_dither.mouse_opacity = 0
 
-	//Red filter for the thermal glasses
+	//Red d_filter for the thermal glasses
 	r_dither = new /obj/screen()
 	r_dither.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	r_dither.name = "thermal glasses"
@@ -52,7 +52,7 @@ var/datum/global_hud/global_hud = new()
 	r_dither.layer = 17
 	r_dither.mouse_opacity = 0
 
-	//Gray filter for the sunglasses
+	//Gray d_filter for the sunglasses
 	gray_dither = new /obj/screen()
 	gray_dither.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	gray_dither.name = "sunglasses"
@@ -60,7 +60,7 @@ var/datum/global_hud/global_hud = new()
 	gray_dither.layer = 17
 	gray_dither.mouse_opacity = 0
 
-	//Yellow filter for the mesons
+	//Yellow d_filter for the mesons
 	lp_dither = new /obj/screen()
 	lp_dither.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	lp_dither.name = "mesons"

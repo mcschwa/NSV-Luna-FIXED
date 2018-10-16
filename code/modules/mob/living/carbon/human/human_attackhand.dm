@@ -122,27 +122,33 @@
 			src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [pick(attack.attack_verb)]ed by [M.name] ([M.ckey])</font>")
 			msg_admin_attack("[key_name(M)] [pick(attack.attack_verb)]ed [key_name(src)]")
 
-			var/damage = rand(0, 5)//BS12 EDIT
+			var/damage = (rand(0,5)+(my_skills.physical*2))
+			var/dmgTXT
 			if(!damage)
 				playsound(loc, attack.miss_sound, 25, 1, -1)
 				visible_message("\red <B>[M] tried to [pick(attack.attack_verb)] [src]!</B>")
 				return 0
 
-
 			var/datum/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 
-			if(HULK in M.mutations)			damage += 5
-
+			if(HULK in M.mutations)
+				damage += 5
 
 			playsound(loc, attack.attack_sound, 25, 1, -1)
 
-			visible_message("\red <B>[M] [pick(attack.attack_verb)]ed [src]!</B>")
+			dmgTXT += "\red <B>[M]</B> [pick(attack.attack_verb)]ed <B>[src]!</B> "
+
+			if(prob(10+(my_skills.combat*2)))
+				dmgTXT += "<font color='#7b00ce'><B>CRITICAL HIT!</B></font> "
+				damage += rand(2,5)
+
 			//Rearranged, so claws don't increase weaken chance.
-			if(damage >= 7 && prob(50))
-				visible_message("\red <B>[M] has weakened [src]!</B>")
+			if(damage >= 7 && prob(40))
+				dmgTXT += "\red [src] is weakened!"
 				apply_effect(3, WEAKEN, armor_block)
 
+			visible_message(dmgTXT)
 			damage += attack.damage
 			apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge)
 			attack.special_act(src)

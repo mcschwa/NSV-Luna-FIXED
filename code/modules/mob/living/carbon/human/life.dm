@@ -385,15 +385,15 @@
 
 					if(istype(wear_mask, /obj/item/clothing/mask) && breath)
 						var/obj/item/clothing/mask/M = wear_mask
-						var/datum/gas_mixture/filtered = M.filter_air(breath)
-						loc.assume_air(filtered)
+						var/datum/gas_mixture/d_filtered = M.d_filter_air(breath)
+						loc.assume_air(d_filtered)
 
 					if(!is_lung_ruptured())
 						if(!breath || breath.total_moles < BREATH_MOLES / 5 || breath.total_moles > BREATH_MOLES * 5)
 							if(prob(5))
 								rupture_lung()
 
-					// Handle filtering
+					// Handle d_filtering
 					var/block = 0
 					if(wear_mask)
 						if(wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)

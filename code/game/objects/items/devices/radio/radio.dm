@@ -362,11 +362,11 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 
 	  /* ###### Intercoms and station-bounced radios ###### */
 
-		var/filter_type = 2
+		var/d_filter_type = 2
 
 		/* --- Intercoms can only broadcast to other intercoms, but bounced radios can broadcast to bounced radios and intercoms --- */
 		if(istype(src, /obj/item/device/radio/intercom))
-			filter_type = 1
+			d_filter_type = 1
 
 
 		var/datum/signal/signal = new
@@ -420,7 +420,7 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 
 		Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
 						  src, message, displayname, jobname, real_name, M.voice_name,
-						  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb,speaking)
+						  d_filter_type, signal.data["compression"], list(position.z), connection.frequency,verb,speaking)
 
 
 

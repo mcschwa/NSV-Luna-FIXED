@@ -15,7 +15,7 @@ Buildable meters
 #define PIPE_SCRUBBER			10
 #define PIPE_INSULATED_STRAIGHT	11
 #define PIPE_INSULATED_BENT		12
-#define PIPE_GAS_FILTER			13
+#define PIPE_GAS_d_filter			13
 #define PIPE_GAS_MIXER			14
 #define PIPE_PASSIVE_GATE       15
 #define PIPE_VOLUME_PUMP        16
@@ -71,7 +71,7 @@ Buildable meters
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/pump))
 			src.pipe_type = PIPE_PUMP
 		else if(istype(make_from, /obj/machinery/atmospherics/trinary/filter))
-			src.pipe_type = PIPE_GAS_FILTER
+			src.pipe_type = PIPE_GAS_d_filter
 		else if(istype(make_from, /obj/machinery/atmospherics/trinary/mixer))
 			src.pipe_type = PIPE_GAS_MIXER
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/vent_scrubber))
@@ -119,7 +119,7 @@ Buildable meters
 		"scrubber", \
 		"insulated pipe", \
 		"bent insulated pipe", \
-		"gas filter", \
+		"gas d_filter", \
 		"gas mixer", \
 		"passive gate", \
 		"volume pump", \
@@ -147,7 +147,7 @@ Buildable meters
 		"scrubber", \
 		"insulated", \
 		"insulated", \
-		"filter", \
+		"d_filter", \
 		"mixer", \
 		"passivegate", \
 		"volumepump", \
@@ -227,7 +227,7 @@ Buildable meters
 			return dir|flip|cw|acw
 		if(PIPE_MANIFOLD)
 			return flip|cw|acw
-		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER,PIPE_MTVALVE)
+		if(PIPE_GAS_d_filter, PIPE_GAS_MIXER,PIPE_MTVALVE)
 			return dir|flip|cw
 		if(PIPE_CAP)
 			return flip
@@ -466,7 +466,7 @@ Buildable meters
 				P.node2.initialize()
 				P.node2.build_network()
 
-		if(PIPE_GAS_FILTER)		//gas filter
+		if(PIPE_GAS_d_filter)		//gas filter
 			var/obj/machinery/atmospherics/trinary/filter/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
@@ -486,7 +486,7 @@ Buildable meters
 				P.node3.initialize()
 				P.node3.build_network()
 
-		if(PIPE_GAS_MIXER)		//gas filter
+		if(PIPE_GAS_MIXER)		//gas d_filter
 			var/obj/machinery/atmospherics/trinary/mixer/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
@@ -699,7 +699,7 @@ Buildable meters
 #undef PIPE_SCRUBBER
 #undef PIPE_INSULATED_STRAIGHT
 #undef PIPE_INSULATED_BENT
-#undef PIPE_GAS_FILTER
+#undef PIPE_GAS_d_filter
 #undef PIPE_GAS_MIXER
 #undef PIPE_PASSIVE_GATE
 #undef PIPE_VOLUME_PUMP

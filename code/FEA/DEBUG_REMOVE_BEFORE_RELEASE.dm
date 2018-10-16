@@ -258,7 +258,7 @@ obj/machinery/atmospherics
 				usr << "Node 1: [node1_concentration], Node 2: [node2_concentration]"
 
 
-	filter
+	d_filter
 		verb
 			toggle()
 				set src in world

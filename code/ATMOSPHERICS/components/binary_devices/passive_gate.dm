@@ -66,7 +66,7 @@ obj/machinery/atmospherics/binary/passive_gate
 			radio_controller.remove_object(src, frequency)
 			frequency = new_frequency
 			if(frequency)
-				radio_connection = radio_controller.add_object(src, frequency, filter = RADIO_ATMOSIA)
+				radio_connection = radio_controller.add_object(src, frequency, d_filter = RADIO_ATMOSIA)
 
 		broadcast_status()
 			if(!radio_connection)
@@ -84,7 +84,7 @@ obj/machinery/atmospherics/binary/passive_gate
 				"sigtype" = "status"
 			)
 
-			radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+			radio_connection.post_signal(src, signal, d_filter = RADIO_ATMOSIA)
 
 			return 1
 

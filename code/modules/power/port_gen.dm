@@ -12,7 +12,7 @@
 	directwired = 0
 	var/t_status = 0
 	var/t_per = 5000
-	var/filter = 1
+	var/d_filter = 1
 	var/tank = null
 	var/turf/inturf
 	var/starter = 0

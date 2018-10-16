@@ -166,8 +166,8 @@
 	build_path = /obj/item/weapon/stock_parts/subspace/ansible
 
 /datum/design/hyperwave_filter
-	name = "Hyperwave Filter"
-	desc = "A tiny device capable of filtering and converting super-intense radiowaves."
+	name = "Hyperwave filter"
+	desc = "A tiny device capable of d_filtering and converting super-intense radiowaves."
 	id = "s-filter"
 	req_tech = list("programming" = 3, "magnets" = 3)
 	build_type = PROTOLATHE

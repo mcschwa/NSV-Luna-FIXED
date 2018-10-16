@@ -82,8 +82,8 @@
 		src.botcard.access = J.get_access()
 
 		if(radio_controller)
-			radio_controller.add_object(src, control_freq, filter = RADIO_SECBOT)
-			radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
+			radio_controller.add_object(src, control_freq, d_filter = RADIO_SECBOT)
+			radio_controller.add_object(src, beacon_freq, d_filter = RADIO_NAVBEACONS)
 		if(lasercolor)
 			shot_delay = 6//Longer shot delay because JESUS CHRIST
 			check_records = 0//Don't actively target people set to arrest
@@ -593,9 +593,9 @@ Auto Patrol: []"},
 		//world << "sent [key],[keyval[key]] on [freq]"
 	signal.data = keyval
 	if (signal.data["findbeacon"])
-		frequency.post_signal(src, signal, filter = RADIO_NAVBEACONS)
+		frequency.post_signal(src, signal, d_filter = RADIO_NAVBEACONS)
 	else if (signal.data["type"] == "secbot")
-		frequency.post_signal(src, signal, filter = RADIO_SECBOT)
+		frequency.post_signal(src, signal, d_filter = RADIO_SECBOT)
 	else
 		frequency.post_signal(src, signal)
 

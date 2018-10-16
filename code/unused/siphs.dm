@@ -204,7 +204,7 @@
 	return
 	*/ //TODO: FIX
 
-/obj/machinery/atmoalter/siphs/scrubbers/air_filter/setstate()
+/obj/machinery/atmoalter/siphs/scrubbers/air_d_filter/setstate()
 
 	if(stat & NOPOWER)
 		icon_state = "vent-p"
@@ -219,7 +219,7 @@
 			src.icon_state = "vent1"
 	return
 
-/obj/machinery/atmoalter/siphs/scrubbers/air_filter/attackby(W as obj, user as mob)
+/obj/machinery/atmoalter/siphs/scrubbers/air_d_filter/attackby(W as obj, user as mob)
 
 	if (istype(W, /obj/item/weapon/screwdriver))
 		if (src.c_status)
@@ -234,7 +234,7 @@
 			src.alterable = !( src.alterable )
 	return
 
-/obj/machinery/atmoalter/siphs/scrubbers/air_filter/reset(valve, auto)
+/obj/machinery/atmoalter/siphs/scrubbers/air_d_filter/reset(valve, auto)
 
 	if (auto)
 		src.t_status = 4

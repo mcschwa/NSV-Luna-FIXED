@@ -75,7 +75,7 @@
 	set category = "Debug"
 	set name = "Radio report"
 
-	var/filters = list(
+	var/d_filters = list(
 		"1" = "RADIO_TO_AIRALARM",
 		"2" = "RADIO_FROM_AIRALARM",
 		"3" = "RADIO_CHAT",
@@ -84,7 +84,7 @@
 		"6" = "RADIO_AIRLOCK",
 		"7" = "RADIO_SECBOT",
 		"8" = "RADIO_MULEBOT",
-		"_default" = "NO_FILTER"
+		"_default" = "NO_d_filter"
 		)
 	var/output = "<b>Radio Report</b><hr>"
 	for (var/fq in radio_controller.frequencies)
@@ -93,12 +93,12 @@
 		if (!fqs)
 			output += "&nbsp;&nbsp;<b>ERROR</b><br>"
 			continue
-		for (var/filter in fqs.devices)
-			var/list/f = fqs.devices[filter]
+		for (var/d_filter in fqs.devices)
+			var/list/f = fqs.devices[d_filter]
 			if (!f)
-				output += "&nbsp;&nbsp;[filters[filter]]: ERROR<br>"
+				output += "&nbsp;&nbsp;[d_filters[d_filter]]: ERROR<br>"
 				continue
-			output += "&nbsp;&nbsp;[filters[filter]]: [f.len]<br>"
+			output += "&nbsp;&nbsp;[d_filters[d_filter]]: [f.len]<br>"
 			for (var/device in f)
 				if (isobj(device))
 					output += "&nbsp;&nbsp;&nbsp;&nbsp;[device] ([device:x],[device:y],[device:z] in area [get_area(device:loc)])<br>"
@@ -124,16 +124,16 @@
 	for(var/t in jobban_keylist)
 		usr << "[t]"
 
-/client/proc/print_jobban_old_filter()
+/client/proc/print_jobban_old_d_filter()
 	set name = "Search Jobban Log"
 	set desc = "This searches all the active jobban entries for the current round and outputs the results to standard output."
 	set category = "Debug"
 
-	var/filter = input("Contains what?","Filter") as text|null
-	if(!filter)
+	var/d_filter = input("Contains what?","d_filter") as text|null
+	if(!d_filter)
 		return
 
 	usr << "<b>Jobbans active in this round.</b>"
 	for(var/t in jobban_keylist)
-		if(findtext(t, filter))
+		if(findtext(t, d_filter))
 			usr << "[t]"

@@ -58,7 +58,7 @@
 	src.locked = 0 // Start unlocked so roboticist can set them to patrol.
 
 	if(radio_controller)
-		radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
+		radio_controller.add_object(src, beacon_freq, d_filter = RADIO_NAVBEACONS)
 
 
 /obj/machinery/bot/cleanbot/turn_on()
@@ -223,7 +223,7 @@ text("<A href='?src=\ref[src];operation=oddbutton'>[src.oddbutton ? "Yes" : "No"
 			signal.source = src
 			signal.transmission_method = 1
 			signal.data = list("findbeacon" = "patrol")
-			frequency.post_signal(src, signal, filter = RADIO_NAVBEACONS)
+			frequency.post_signal(src, signal, d_filter = RADIO_NAVBEACONS)
 			spawn(5)
 				if (!next_dest_loc)
 					next_dest_loc = closest_loc

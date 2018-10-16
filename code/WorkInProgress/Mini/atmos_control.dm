@@ -278,13 +278,13 @@ siphoning
 
 					if(data["scrubbing"])
 						sensor_data += {"
-<B>Filtering:</B>
+<B>d_filtering:</B>
 Carbon Dioxide
-<A href='?src=\ref[src];alarm=\ref[current];id_tag=[id_tag];command=co2_scrub;val=[!data["filter_co2"]]'>[data["filter_co2"]?"on":"off"]</A>;
+<A href='?src=\ref[src];alarm=\ref[current];id_tag=[id_tag];command=co2_scrub;val=[!data["d_filter_co2"]]'>[data["d_filter_co2"]?"on":"off"]</A>;
 Toxins
-<A href='?src=\ref[src];alarm=\ref[current];id_tag=[id_tag];command=tox_scrub;val=[!data["filter_toxins"]]'>[data["filter_toxins"]?"on":"off"]</A>;
+<A href='?src=\ref[src];alarm=\ref[current];id_tag=[id_tag];command=tox_scrub;val=[!data["d_filter_toxins"]]'>[data["d_filter_toxins"]?"on":"off"]</A>;
 Nitrous Oxide
-<A href='?src=\ref[src];alarm=\ref[current];id_tag=[id_tag];command=n2o_scrub;val=[!data["filter_n2o"]]'>[data["filter_n2o"]?"on":"off"]</A>
+<A href='?src=\ref[src];alarm=\ref[current];id_tag=[id_tag];command=n2o_scrub;val=[!data["d_filter_n2o"]]'>[data["d_filter_n2o"]?"on":"off"]</A>
 <BR>
 "}
 					sensor_data += {"
@@ -300,7 +300,7 @@ Nitrous Oxide
 			output += {"
 <a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_MAIN]'>Main menu</a><br>
 <b>Air machinery mode for the area:</b><ul>"}
-			var/list/modes = list(AALARM_MODE_SCRUBBING   = "Filtering - Scrubs out contaminants",\
+			var/list/modes = list(AALARM_MODE_SCRUBBING   = "d_filtering - Scrubs out contaminants",\
 					AALARM_MODE_REPLACEMENT = "<font color='blue'>Replace Air - Siphons out air while replacing</font>",\
 					AALARM_MODE_PANIC       = "<font color='red'>Panic - Siphons air out of the room</font>",\
 					AALARM_MODE_CYCLE       = "<font color='red'>Cycle - Siphons air before replacing</font>",\

@@ -39,6 +39,7 @@
 	var/minimal_player_age = 0
 
 /datum/job/proc/equip(var/mob/living/carbon/human/H)
+	H.my_skills.job_stats(title)
 	return 1
 
 /datum/job/proc/get_access()

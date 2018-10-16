@@ -403,7 +403,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			part_a = "<span class='deptradio'><span class='name'>"
 
 
-		// --- Filter the message; place it in quotes apply a verb ---
+		// --- d_filter the message; place it in quotes apply a verb ---
 
 		var/quotedmsg = null
 		if(M)

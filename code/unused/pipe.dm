@@ -1705,15 +1705,15 @@ var/linenums = 0
 	spawn(rand(1,15))	// So they don't all turn off at the same time
 		updateicon()
 
-// Filter inlet
-// works with filter_control
+// d_filter inlet
+// works with d_filter_control
 
-/obj/machinery/inlet/filter/New()
+/obj/machinery/inlet/d_filter/New()
 	..()
 	src.gas = new /datum/gas_mixture()
 	src.ngas = new /datum/gas_mixture()
 
-/obj/machinery/inlet/filter/buildnodes()
+/obj/machinery/inlet/d_filter/buildnodes()
 	var/turf/T = get_step(src.loc, src.dir)
 	var/fdir = turn(src.p_dir, 180)
 
@@ -1725,16 +1725,16 @@ var/linenums = 0
 	if(node) vnode = node.getline()
 	return
 
-/obj/machinery/inlet/filter/get_gas_val(from)
+/obj/machinery/inlet/d_filter/get_gas_val(from)
 	return gas.total_moles()/2
 
-/obj/machinery/inlet/filter/get_gas(from)
+/obj/machinery/inlet/d_filter/get_gas(from)
 	return gas
 
-/obj/machinery/inlet/filter/gas_flow()
+/obj/machinery/inlet/d_filter/gas_flow()
 	gas.copy_from(ngas)
 
-/obj/machinery/inlet/filter/process()
+/obj/machinery/inlet/d_filter/process()
 	src.updateicon()
 	if(!(stat & NOPOWER))
 	/*	var/turf/T = src.loc
@@ -1767,14 +1767,14 @@ var/linenums = 0
 		..()
 	return
 
-/obj/machinery/inlet/filter/leak_to_turf()
+/obj/machinery/inlet/d_filter/leak_to_turf()
 // note this is a leak from the node, not the inlet itself
 // thus acts as a link between the inlet turf and the turf in step(dir)
 	var/turf/T = get_step(src, dir)
 	if(T && !T.density)
 		flow_to_turf(gas, ngas, T)
 
-/obj/machinery/inlet/filter/power_change()
+/obj/machinery/inlet/d_filter/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
 	else
@@ -1783,28 +1783,28 @@ var/linenums = 0
 		updateicon()
 	return
 
-/obj/machinery/inlet/filter/proc/updateicon()
+/obj/machinery/inlet/d_filter/proc/updateicon()
 	/*
 	if(stat & NOPOWER)
-		icon_state = "inlet_filter-0"
+		icon_state = "inlet_d_filter-0"
 		return
 	if(src.gas.total_moles() > src.gas.maximum/2)
-		icon_state = "inlet_filter-4"
+		icon_state = "inlet_d_filter-4"
 	else if(src.gas.total_moles() > src.gas.maximum/3)
-		icon_state = "inlet_filter-3"
+		icon_state = "inlet_d_filter-3"
 	else if(src.gas.total_moles() > src.gas.maximum/4)
-		icon_state = "inlet_filter-2"
+		icon_state = "inlet_d_filter-2"
 	else if(src.gas.total_moles() >= 1 || src.f_mask >= 1)
-		icon_state = "inlet_filter-1"
+		icon_state = "inlet_d_filter-1"
 	else
-		icon_state = "inlet_filter-0"
+		icon_state = "inlet_d_filter-0"
 	return
 	*/ //TODO FIX
 
-// Filter vent
+// d_filter vent
 // doesn't do anything yet
 
-/obj/machinery/vent/filter/power_change()
+/obj/machinery/vent/d_filter/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
 	else
@@ -1813,20 +1813,20 @@ var/linenums = 0
 		updateicon()
 	return
 
-/obj/machinery/vent/filter/proc/updateicon()
+/obj/machinery/vent/d_filter/proc/updateicon()
 	/*
 	if(stat & NOPOWER)
-		icon_state = "vent_filter-0"
+		icon_state = "vent_d_filter-0"
 		return
 	if(src.gas.total_moles() > src.gas.maximum/2)
-		icon_state = "vent_filter-4"
+		icon_state = "vent_d_filter-4"
 	else if(src.gas.total_moles() > src.gas.maximum/3)
-		icon_state = "vent_filter-3"
+		icon_state = "vent_d_filter-3"
 	else if(src.gas.total_moles() > src.gas.maximum/4)
-		icon_state = "vent_filter-2"
+		icon_state = "vent_d_filter-2"
 	else if(src.gas.total_moles() >= 1 || src.f_mask >= 1)
-		icon_state = "vent_filter-1"
+		icon_state = "vent_d_filter-1"
 	else
-		icon_state = "vent_filter-0"
+		icon_state = "vent_d_filter-0"
 	return
 	*/ //TODO FIX

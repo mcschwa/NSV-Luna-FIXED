@@ -45,7 +45,7 @@
 		L += Objects
 	return L
 
-/mob/living/simple_animal/hostile/proc/FindTarget()//Step 2, filter down possible targets to things we actually care about
+/mob/living/simple_animal/hostile/proc/FindTarget()//Step 2, d_filter down possible targets to things we actually care about
 	var/list/Targets = list()
 	var/Target
 	for(var/atom/A in ListTargets())

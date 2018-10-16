@@ -239,8 +239,8 @@
 
 					if(istype(wear_mask, /obj/item/clothing/mask) && breath)
 						var/obj/item/clothing/mask/M = wear_mask
-						var/datum/gas_mixture/filtered = M.filter_air(breath)
-						loc.assume_air(filtered)
+						var/datum/gas_mixture/d_filtered = M.d_filter_air(breath)
+						loc.assume_air(d_filtered)
 
 					// Handle chem smoke effect  -- Doohl
 					var/block = 0

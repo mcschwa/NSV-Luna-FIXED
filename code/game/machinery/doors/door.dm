@@ -10,6 +10,7 @@
 	density = 1
 	layer = 2.7
 	var/open_layer = 2.8
+	var/obj/machinery/card_scanner/my_scanner = null
 
 	var/secondsElectrified = 0
 	var/visible = 1
@@ -95,7 +96,7 @@
 
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
-	if(operating)	return
+	if(operating || my_scanner)	return
 	if(user.last_airflow > world.time - vsc.airflow_delay) //Fakkit
 		return
 	src.add_fingerprint(user)
@@ -233,15 +234,14 @@
 	if(!ticker)			return 0
 	if(!operating)		operating = 1
 
+	SetOpacity(0)
 	do_animate("opening")
 	icon_state = "door0"
-	src.SetOpacity(0)
-	sleep(10)
-	src.layer = open_layer
-	src.density = 0
+	sleep(5)
+	density = 0
+	layer = open_layer
 	explosion_resistance = 0
 	update_icon()
-	SetOpacity(0)
 	update_nearby_tiles()
 
 	if(operating)	operating = 0

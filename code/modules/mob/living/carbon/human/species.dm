@@ -541,7 +541,7 @@
 	return 0
 
 /datum/unarmed_attack/bite
-	attack_verb = list("bite") // 'x has biteed y', needs work.
+	attack_verb = list("bit") // 'x has biteed y', needs work.
 	attack_sound = 'sound/weapons/bite.ogg'
 	shredding = 0
 	damage = 5
@@ -554,7 +554,7 @@
 	return 1
 
 /datum/unarmed_attack/bite/zombie
-	attack_verb = list("bite") // 'x has biteed y', needs work.
+	attack_verb = list("bit") // 'x has biteed y', needs work.
 	attack_sound = 'sound/weapons/bite.ogg'
 	shredding = 0
 	damage = 5

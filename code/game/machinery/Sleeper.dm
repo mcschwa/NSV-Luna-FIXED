@@ -75,11 +75,11 @@
 			dat += "<A href='?src=\ref[src];refresh=1'>Refresh Meter Readings</A><BR>"
 			if(src.connected.beaker)
 				dat += "<HR><A href='?src=\ref[src];removebeaker=1'>Remove Beaker</A><BR>"
-				if(src.connected.filtering)
-					dat += "<A href='?src=\ref[src];togglefilter=1'>Stop Dialysis</A><BR>"
+				if(src.connected.d_filtering)
+					dat += "<A href='?src=\ref[src];toggled_filter=1'>Stop Dialysis</A><BR>"
 					dat += text("Output Beaker has [] units of free space remaining<BR><HR>", src.connected.beaker.reagents.maximum_volume - src.connected.beaker.reagents.total_volume)
 				else
-					dat += "<HR><A href='?src=\ref[src];togglefilter=1'>Start Dialysis</A><BR>"
+					dat += "<HR><A href='?src=\ref[src];toggled_filter=1'>Start Dialysis</A><BR>"
 					dat += text("Output Beaker has [] units of free space remaining<BR><HR>", src.connected.beaker.reagents.maximum_volume - src.connected.beaker.reagents.total_volume)
 			else
 				dat += "<HR>No Dialysis Output Beaker is present.<BR><HR>"
@@ -118,8 +118,8 @@
 		if (href_list["removebeaker"])
 			src.connected.remove_beaker()
 			src.updateUsrDialog()
-		if (href_list["togglefilter"])
-			src.connected.toggle_filter()
+		if (href_list["toggled_filter"])
+			src.connected.toggle_d_filter()
 			src.updateUsrDialog()
 		if (href_list["ejectify"])
 			src.connected.eject()
@@ -152,7 +152,7 @@
 	var/available_chemicals = list("ephedrine" = "Ephedrine", "stoxin" = "Soporific", "paracetamol" = "Paracetamol", "charcoal" = "Charcoal", "salbutamol" = "Salbutamol")
 	var/amounts = list(5, 10)
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
-	var/filtering = 0
+	var/d_filtering = 0
 
 
 /obj/machinery/sleeper/New()
@@ -167,7 +167,7 @@
 
 /obj/machinery/sleeper/process()
 	..()
-	if(filtering > 0 && beaker && istype(src.occupant, /mob/living/carbon/human))
+	if(d_filtering > 0 && beaker && istype(src.occupant, /mob/living/carbon/human))
 		if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 			var/mob/living/carbon/human/H = src.occupant
 			H.vessel.trans_to(beaker, 1)
@@ -238,8 +238,8 @@
 
 
 /obj/machinery/sleeper/ex_act(severity)
-	if(filtering)
-		toggle_filter()
+	if(d_filtering)
+		toggle_d_filter()
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
@@ -264,8 +264,8 @@
 	return
 
 /obj/machinery/sleeper/emp_act(severity)
-	if(filtering)
-		toggle_filter()
+	if(d_filtering)
+		toggle_d_filter()
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
@@ -291,15 +291,15 @@
 		M:reagents.add_reagent("epinephrine", 5)
 	return
 
-/obj/machinery/sleeper/proc/toggle_filter()
-	if(filtering)
-		filtering = 0
+/obj/machinery/sleeper/proc/toggle_d_filter()
+	if(d_filtering)
+		d_filtering = 0
 	else
-		filtering = 1
+		d_filtering = 1
 
 /obj/machinery/sleeper/proc/go_out()
-	if(filtering)
-		toggle_filter()
+	if(d_filtering)
+		toggle_d_filter()
 	if(!src.occupant)
 		return
 	if(src.occupant.client)
@@ -368,7 +368,7 @@
 	if(usr.stat != 0)
 		return
 	if(beaker)
-		filtering = 0
+		d_filtering = 0
 		beaker.loc = usr.loc
 		beaker = null
 	add_fingerprint(usr)

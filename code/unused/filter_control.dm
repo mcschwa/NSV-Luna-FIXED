@@ -1,21 +1,21 @@
-// Currently only used to control /obj/machinery/inlet/filter
+// Currently only used to control /obj/machinery/inlet/d_filter
 // todo: expand to vent control as well?
 
-/obj/machinery/filter_control/New()
+/obj/machinery/d_filter_control/New()
 	..()
 	spawn(5)	//wait for world
-		for(var/obj/machinery/inlet/filter/F in machines)
+		for(var/obj/machinery/inlet/d_filter/F in machines)
 			if(F.control == src.control)
 				F.f_mask = src.f_mask
-		desc = "A remote control for a filter: [control]"
+		desc = "A remote control for a d_filter: [control]"
 
-/obj/machinery/filter_control/attack_ai(mob/user as mob)
+/obj/machinery/d_filter_control/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/filter_control/attack_paw(mob/user as mob)
+/obj/machinery/d_filter_control/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/filter_control/attackby(obj/item/weapon/W, mob/user as mob)
+/obj/machinery/d_filter_control/attackby(obj/item/weapon/W, mob/user as mob)
 	if(istype(W, /obj/item/weapon/detective_scanner))
 		return ..()
 	if(istype(W, /obj/item/weapon/screwdriver))
@@ -40,16 +40,16 @@
 		return src.attack_hand(user)
 	return src.attack_hand(user)
 
-/obj/machinery/filter_control/process()
+/obj/machinery/d_filter_control/process()
 	if(!(stat & NOPOWER))
 		use_power(5,ENVIRON)
 		AutoUpdateAI(src)
 		src.updateUsrDialog()
 	src.updateicon()
 
-/obj/machinery/filter_control/attack_hand(mob/user as mob)
+/obj/machinery/d_filter_control/attack_hand(mob/user as mob)
 	if(stat & NOPOWER)
-		user << browse(null, "window=filter_control")
+		user << browse(null, "window=d_filter_control")
 		user.machine = null
 		return
 	if(user.stat || user.lying)
@@ -64,7 +64,7 @@
 	var/IGoodConnection = 0
 	var/IBadConnection = 0
 
-	for(var/obj/machinery/inlet/filter/F in machines)
+	for(var/obj/machinery/inlet/d_filter/F in machines)
 		if((F.control == src.control) && !(F.stat && (NOPOWER|BROKEN)))
 			IGoodConnection++
 		else if(F.control == src.control)
@@ -83,11 +83,11 @@
 		dat += "<BR>\n<small>Error codes: 0x0000001E 0x0000007B</small><BR>\n"
 
 	dat += "<BR>\n<A href='?src=\ref[src];close=1'>Close</A><BR>\n"
-	user << browse(dat, "window=filter_control;size=300x225")
-	onclose(user, "filter_control")
-/obj/machinery/filter_control/Topic(href, href_list)
+	user << browse(dat, "window=d_filter_control;size=300x225")
+	onclose(user, "d_filter_control")
+/obj/machinery/d_filter_control/Topic(href, href_list)
 	if (href_list["close"])
-		usr << browse(null, "window=filter_control;")
+		usr << browse(null, "window=d_filter_control;")
 		usr.machine = null
 		return	//Who cares if we're dead or whatever let us close the fucking window
 	if(..())
@@ -98,7 +98,7 @@
 			if (href_list["tg"])	//someone modified the html so I added a check here
 				// toggle gas
 				src.f_mask ^= text2num(href_list["tg"])
-				for(var/obj/machinery/inlet/filter/FI in machines)
+				for(var/obj/machinery/inlet/d_filter/FI in machines)
 					if(FI.control == src.control)
 						FI.f_mask ^= text2num(href_list["tg"])
 		else
@@ -107,52 +107,52 @@
 		src.updateUsrDialog()
 		src.add_fingerprint(usr)
 	else
-		usr << browse(null, "window=filter_control")
+		usr << browse(null, "window=d_filter_control")
 		usr.machine = null
 		return
 
-/obj/machinery/filter_control/proc/updateicon()
+/obj/machinery/d_filter_control/proc/updateicon()
 	overlays.Cut()
 	if(stat & NOPOWER)
-		icon_state = "filter_control-nopower"
+		icon_state = "d_filter_control-nopower"
 		return
-	icon_state = "filter_control"
+	icon_state = "d_filter_control"
 	if(src.locked && (stat & BROKEN))
-		overlays += image('icons/obj/stationobjs.dmi', "filter_control00")
+		overlays += image('icons/obj/stationobjs.dmi', "d_filter_control00")
 		return
 	else if(!src.locked)
-		icon_state = "filter_control-unlocked"
+		icon_state = "d_filter_control-unlocked"
 		if(stat & BROKEN)
-			overlays += image('icons/obj/stationobjs.dmi', "filter_control-wirecut")
-			overlays += image('icons/obj/stationobjs.dmi', "filter_control00")
+			overlays += image('icons/obj/stationobjs.dmi', "d_filter_control-wirecut")
+			overlays += image('icons/obj/stationobjs.dmi', "d_filter_control00")
 			return
 
 	var/GoodConnection = 0
-	for(var/obj/machinery/inlet/filter/F in machines)
+	for(var/obj/machinery/inlet/d_filter/F in machines)
 		if((F.control == src.control) && !(F.stat && (NOPOWER|BROKEN)))
 			GoodConnection++
 			break
 
 	if(GoodConnection && src.f_mask)
-		overlays += image('icons/obj/stationobjs.dmi', "filter_control1")
+		overlays += image('icons/obj/stationobjs.dmi', "d_filter_control1")
 	else if(GoodConnection)
-		overlays += image('icons/obj/stationobjs.dmi', "filter_control10")
+		overlays += image('icons/obj/stationobjs.dmi', "d_filter_control10")
 	else if(src.f_mask)
-		overlays += image('icons/obj/stationobjs.dmi', "filter_control0")
+		overlays += image('icons/obj/stationobjs.dmi', "d_filter_control0")
 	else
-		overlays += image('icons/obj/stationobjs.dmi', "filter_control00")
+		overlays += image('icons/obj/stationobjs.dmi', "d_filter_control00")
 
 	if (src.f_mask & (GAS_N2O|GAS_PL))
-		src.overlays += image('icons/obj/stationobjs.dmi', "filter_control-tox")
+		src.overlays += image('icons/obj/stationobjs.dmi', "d_filter_control-tox")
 	if (src.f_mask & GAS_O2)
-		src.overlays += image('icons/obj/stationobjs.dmi', "filter_control-o2")
+		src.overlays += image('icons/obj/stationobjs.dmi', "d_filter_control-o2")
 	if (src.f_mask & GAS_N2)
-		src.overlays += image('icons/obj/stationobjs.dmi', "filter_control-n2")
+		src.overlays += image('icons/obj/stationobjs.dmi', "d_filter_control-n2")
 	if (src.f_mask & GAS_CO2)
-		src.overlays += image('icons/obj/stationobjs.dmi', "filter_control-co2")
+		src.overlays += image('icons/obj/stationobjs.dmi', "d_filter_control-co2")
 	return
 
-/obj/machinery/filter_control/power_change()
+/obj/machinery/d_filter_control/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
 	else

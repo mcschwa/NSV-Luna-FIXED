@@ -260,26 +260,26 @@
 				src.damage = 0
 
 			// Get the effectiveness of the liver.
-			var/filter_effect = 3
+			var/d_filter_effect = 3
 			if(is_bruised())
-				filter_effect -= 1
+				d_filter_effect -= 1
 			if(is_broken())
-				filter_effect -= 2
+				d_filter_effect -= 2
 
-			// Do some reagent filtering/processing.
+			// Do some reagent d_filtering/processing.
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Damaged liver means some chemicals are very dangerous
 				// The liver is also responsible for clearing out alcohol and toxins.
 				// Ethanol and all drinks are bad.K
 				if(istype(R, /datum/reagent/ethanol))
-					if(filter_effect < 3)
+					if(d_filter_effect < 3)
 						owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
-					owner.reagents.remove_reagent(R.id, R.metabolization_rate*filter_effect)
+					owner.reagents.remove_reagent(R.id, R.metabolization_rate*d_filter_effect)
 				// Can't cope with toxins at all
 				else if(istype(R, /datum/reagent/toxin))
-					if(filter_effect < 3)
+					if(d_filter_effect < 3)
 						owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
-					owner.reagents.remove_reagent(R.id, REAGENTS_METABOLISM*filter_effect)
+					owner.reagents.remove_reagent(R.id, REAGENTS_METABOLISM*d_filter_effect)
 
 /datum/organ/internal/liver/robotic
 	robotic = 2
