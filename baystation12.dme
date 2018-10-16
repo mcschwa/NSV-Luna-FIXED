@@ -48,6 +48,7 @@
 #define FILE_DIR "sound/AI"
 #define FILE_DIR "sound/ambience"
 #define FILE_DIR "sound/effects"
+#define FILE_DIR "sound/effects/gore"
 #define FILE_DIR "sound/effects/player"
 #define FILE_DIR "sound/effects/turret"
 #define FILE_DIR "sound/effects/wind"

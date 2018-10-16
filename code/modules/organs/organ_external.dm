@@ -66,7 +66,7 @@
 		probability = 1
 		damage = 3
 	if(prob(probability))
-		droplimb(1)
+		droplimb(1, 0, 1)
 	else
 		take_damage(damage, 0, 1, 1, used_weapon = "EMP")
 
@@ -159,10 +159,15 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(body_part != UPPER_TORSO && body_part != LOWER_TORSO) //as hilarious as it is, getting hit on the chest too much shouldn't effectively gib you.
 		if(config.limbs_can_break && brute_dam >= max_damage * config.organ_health_multiplier)
-			if( (edge && prob(5 * brute)) || (brute > 20 && prob(2 * brute)) )
+			//if( (edge && prob(5 * brute)) || (brute > 20 && prob(2 * brute)) )
+			//	droplimb(1)
+			//	return
+			if((edge && prob(5 *brute)))
 				droplimb(1)
 				return
-
+			else if((brute > 20 && prob(2 * brute)))
+				droplimb(1,0,1)
+				return
 	owner.updatehealth()
 
 	var/result = update_icon()
@@ -567,7 +572,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		O.setAmputatedTree()
 
 //Handles dismemberment
-/datum/organ/external/proc/droplimb(var/override = 0,var/no_explode = 0)
+/datum/organ/external/proc/droplimb(var/override = 0,var/no_explode = 0, var/gibbed = 0)
 	if(destspawn) return
 	if(override)
 		status |= ORGAN_DESTROYED
@@ -585,16 +590,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 		germ_level = 0
 
 		//Replace all wounds on that arm with one wound on parent organ.
-		wounds.Cut()
-		if (parent)
-			if(!(parent.status & ORGAN_DESTROYED))
-				var/datum/wound/W
-				if(max_damage < 50)
-					W = new/datum/wound/lost_limb/small(max_damage)
-				else
-					W = new/datum/wound/lost_limb(max_damage)
-				parent.wounds += W
-				parent.update_damages()
+		for(var/W in wounds)
+			wounds.Remove(W)
+			qdel(W)
+		//why is this on the parent?
+		//if (parent)
+		//	if(!(parent.status & ORGAN_DESTROYED))
+		//I mean the check makes sense
+		if(parent)
+			var/datum/wound/W
+			W = new/datum/wound/lost_limb(0, max_damage, 0, src)
+			wounds += W
+			update_damages()
 		update_damages()
 
 		// If any organs are attached to this, destroy them
@@ -602,54 +609,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 			O.droplimb(1)
 
 		var/obj/organ	//Dropped limb object
-		switch(body_part)
-			if(HEAD)
-				if(owner.species.flags & IS_SYNTHETIC)
-					organ= new /obj/item/weapon/organ/head/posi(owner.loc, owner)
-				else
-					organ= new /obj/item/weapon/organ/head(owner.loc, owner)
-				owner.u_equip(owner.glasses)
-				owner.u_equip(owner.head)
-				owner.u_equip(owner.l_ear)
-				owner.u_equip(owner.r_ear)
-				owner.u_equip(owner.wear_mask)
-			if(ARM_RIGHT)
-				if(status & ORGAN_ROBOT)
-					organ = new /obj/item/robot_parts/r_arm(owner.loc)
-				else
-					organ= new /obj/item/weapon/organ/r_arm(owner.loc, owner)
-			if(ARM_LEFT)
-				if(status & ORGAN_ROBOT)
-					organ= new /obj/item/robot_parts/l_arm(owner.loc)
-				else
-					organ= new /obj/item/weapon/organ/l_arm(owner.loc, owner)
-			if(LEG_RIGHT)
-				if(status & ORGAN_ROBOT)
-					organ = new /obj/item/robot_parts/r_leg(owner.loc)
-				else
-					organ= new /obj/item/weapon/organ/r_leg(owner.loc, owner)
-			if(LEG_LEFT)
-				if(status & ORGAN_ROBOT)
-					organ = new /obj/item/robot_parts/l_leg(owner.loc)
-				else
-					organ= new /obj/item/weapon/organ/l_leg(owner.loc, owner)
-			if(HAND_RIGHT)
-				if(!(status & ORGAN_ROBOT))
-					organ= new /obj/item/weapon/organ/r_hand(owner.loc, owner)
-				owner.u_equip(owner.gloves)
-			if(HAND_LEFT)
-				if(!(status & ORGAN_ROBOT))
-					organ= new /obj/item/weapon/organ/l_hand(owner.loc, owner)
-				owner.u_equip(owner.gloves)
-			if(FOOT_RIGHT)
-				if(!(status & ORGAN_ROBOT))
-					organ= new /obj/item/weapon/organ/r_foot/(owner.loc, owner)
-				owner.u_equip(owner.shoes)
-			if(FOOT_LEFT)
-				if(!(status & ORGAN_ROBOT))
-					organ = new /obj/item/weapon/organ/l_foot(owner.loc, owner)
-				owner.u_equip(owner.shoes)
-
 		destspawn = 1
 		//Robotic limbs explode if sabotaged.
 		if(status & ORGAN_ROBOT && !no_explode && sabotaged)
@@ -664,22 +623,120 @@ Note that amputating the affected organ does in fact remove the infection from t
 			spawn(10)
 				del(spark_system)
 
-		owner.visible_message("\red [owner.name]'s [display_name] flies off in bloody arc.",\
-		"<span class='moderate'><b>Your [display_name] goes flying off!</b></span>",\
-		"You hear a terrible sound of ripping tendons and flesh.")
+		if(!gibbed)
+			switch(body_part)
+				if(HEAD)
+					if(owner.species.flags & IS_SYNTHETIC)
+						organ= new /obj/item/weapon/organ/head/posi(owner.loc, owner)
+					else
+						organ= new /obj/item/weapon/organ/head(owner.loc, owner)
+					owner.u_equip(owner.glasses)
+					owner.u_equip(owner.head)
+					owner.u_equip(owner.l_ear)
+					owner.u_equip(owner.r_ear)
+					owner.u_equip(owner.wear_mask)
+				if(ARM_RIGHT)
+					if(status & ORGAN_ROBOT)
+						organ = new /obj/item/robot_parts/r_arm(owner.loc)
+					else
+						organ= new /obj/item/weapon/organ/r_arm(owner.loc, owner)
+				if(ARM_LEFT)
+					if(status & ORGAN_ROBOT)
+						organ= new /obj/item/robot_parts/l_arm(owner.loc)
+					else
+						organ= new /obj/item/weapon/organ/l_arm(owner.loc, owner)
+				if(LEG_RIGHT)
+					if(status & ORGAN_ROBOT)
+						organ = new /obj/item/robot_parts/r_leg(owner.loc)
+					else
+						organ= new /obj/item/weapon/organ/r_leg(owner.loc, owner)
+				if(LEG_LEFT)
+					if(status & ORGAN_ROBOT)
+						organ = new /obj/item/robot_parts/l_leg(owner.loc)
+					else
+						organ= new /obj/item/weapon/organ/l_leg(owner.loc, owner)
+					
+				if(HAND_RIGHT)
+					if(!(status & ORGAN_ROBOT))
+						organ= new /obj/item/weapon/organ/r_hand(owner.loc, owner)
+					owner.u_equip(owner.gloves)
+				if(HAND_LEFT)
+					if(!(status & ORGAN_ROBOT))
+						organ= new /obj/item/weapon/organ/l_hand(owner.loc, owner)
+					owner.u_equip(owner.gloves)
+				if(FOOT_RIGHT)
+					if(!(status & ORGAN_ROBOT))
+						organ= new /obj/item/weapon/organ/r_foot/(owner.loc, owner)
+					owner.u_equip(owner.shoes)
+				if(FOOT_LEFT)
+					if(!(status & ORGAN_ROBOT))
+						organ = new /obj/item/weapon/organ/l_foot(owner.loc, owner)
+					owner.u_equip(owner.shoes)
+					
 
-		if(organ)
-			//Throw organs around
-			var/lol = pick(cardinal)
-			step(organ,lol)
+			owner.visible_message("\red [owner.name]'s [display_name] flies off in bloody arc.",\
+			"<span class='moderate'><b>Your [display_name] goes flying off!</b></span>",\
+			"You hear a terrible sound of ripping tendons and flesh.")
 
-		owner.update_body(1)
+			playsound(owner, 'sound/effects/gore/severed.ogg', 50, 1, -1)
 
-		// OK so maybe your limb just flew off, but if it was attached to a pair of cuffs then hooray! Freedom!
-		release_restraints()
+			if(organ)
+				//Throw organs around
+				var/lol = pick(cardinal)
+				step(organ,lol)
+			owner.update_body(1)
 
-		if(vital)
-			owner.death()
+			// OK so maybe your limb just flew off, but if it was attached to a pair of cuffs then hooray! Freedom!
+			release_restraints()
+
+			if(vital)
+				owner.death()
+
+			var/turf/location = organ.loc
+			if (istype(location, /turf/simulated))
+				location.add_blood(owner)
+			return
+
+		else//This is if their limb is gibbed.
+			switch(body_part)
+				if(HEAD)
+					owner.u_equip(owner.glasses)
+					owner.u_equip(owner.head)
+					owner.u_equip(owner.l_ear)
+					owner.u_equip(owner.r_ear)
+					owner.u_equip(owner.wear_mask)
+					owner.h_style = "Bald"
+					owner.update_hair()
+				if(HAND_RIGHT)
+					owner.u_equip(owner.gloves)
+				if(HAND_LEFT)
+					owner.u_equip(owner.gloves)
+				if(FOOT_RIGHT)
+					owner.u_equip(owner.shoes)
+				if(FOOT_LEFT)
+					owner.u_equip(owner.shoes)
+
+					
+
+			owner.visible_message("\red [owner.name]'s [display_name] explodes into gore!",\
+			"<span class='moderate'><b>Your [display_name] explodes into gore!</b></span>",\
+			"You hear a terrible sound of ripping tendons and flesh.")
+			playsound(owner, 'sound/effects/gore/limb_explode.ogg', 50, 1, -1)
+
+
+
+			owner.update_body(1)
+
+			// OK so maybe your limb just flew off, but if it was attached to a pair of cuffs then hooray! Freedom!
+			release_restraints()
+
+			if(vital)
+				owner.death()
+
+			var/turf/location = owner.loc
+			if (istype(location, /turf/simulated))
+				location.add_blood(owner)
+				new /obj/effect/decal/cleanable/blood/gibs(location)
 
 /****************************************************
 			   HELPERS
