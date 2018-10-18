@@ -50,6 +50,9 @@ var/global/normal_ooc_colour = "#002eb8"
 			else
 				display_colour = "#b82e00"	//orange
 
+
+	msg = emoji_parse(msg)
+
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
 			var/display_name = src.key
