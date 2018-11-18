@@ -321,9 +321,11 @@
 
 /obj/multiz/stairs/enter/bottom
 	istop = 0
+	icon_state = "rampbottom"
 
 /obj/multiz/stairs/active
 	density = 1
+	icon_state = "rampbottom"
 
 /obj/multiz/stairs/active/Bumped(var/atom/movable/M)
 	if(istype(src, /obj/multiz/stairs/active/bottom) && !locate(/obj/multiz/stairs/enter) in M.loc)
@@ -345,6 +347,7 @@
 /obj/multiz/stairs/active/bottom
 	istop = 0
 	opacity = 1
+	icon_state = "ramptop"
 
 /obj/multiz/attack_tk(mob/user as mob)
 	return

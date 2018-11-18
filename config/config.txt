@@ -1,5 +1,5 @@
 ## Server name: This appears at the top of the screen in-game. In this case it will read "tgstation: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'tgstation' with the name of your choice
-# SERVERNAME spacestation13
+SERVERNAME Nostalgia Station
 
 ## Alert levels
 ALERT_GREEN All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced.
@@ -215,7 +215,7 @@ SOCKET_TALK 0
 GATEWAY_DELAY 18000
 
 ## Remove the # to give assistants maint access.
-#ASSISTANT_MAINT
+ASSISTANT_MAINT
 
 ## Remove the # to make rounds which end instantly (Rev, Wizard, Malf) to continue until the shuttle is called or the station is nuked.
 ## Malf and Rev will let the shuttle be called when the antags/protags are dead.
@@ -252,7 +252,7 @@ USEALIENWHITELIST
 ## This helps security and stability on Linux, but you need to compile the library first.
 #USE_LIB_NUDGE
 
-## Uncommen to allow ghosts to write in blood during Cult rounds.
+## Uncomment to allow ghosts to write in blood during Cult rounds.
 ALLOW_CULT_GHOSTWRITER
 
 ## Sets the minimum number of cultists needed for ghosts to write in blood.
@@ -339,7 +339,7 @@ ANIMAL_DELAY 0
 #USE_LOYALTY_IMPLANTS
 
 ## Remove # if you want your server have the Luna's job system
-JOIN_UNASSIGNED
+#JOIN_UNASSIGNED
 
 ## Uncomment to use overmap system for zlevel travel
 USE_OVERMAP
