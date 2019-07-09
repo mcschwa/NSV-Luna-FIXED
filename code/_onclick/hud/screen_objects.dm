@@ -24,6 +24,30 @@
 	maptext_width = 480
 
 
+/obj/screen/a_intent
+	name = "a_intent"
+	var/intent = "help"
+
+/obj/screen/a_intent/update_icon()
+	icon_state = "[intent]"
+
+/obj/screen/a_intent/Click(location, control, params)
+	var/list/P = params2list(params)
+	var/icon_x = text2num(P["icon-x"])
+	var/icon_y = text2num(P["icon-y"])
+	intent = "disarm"
+	if(icon_x <= world.icon_size/2)
+		if(icon_y <= world.icon_size/2)
+			intent = "hurt"
+		else
+			intent = "help"
+	else if(icon_y <= world.icon_size/2)
+		intent = "grab"
+	update_icon()
+	usr.a_intent = intent
+
+
+
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 

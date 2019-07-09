@@ -7,43 +7,6 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
-//ACCount's Intents Panel Beginning
-
-	using = new /obj/screen()
-	using.name = "help"
-	using.icon = ui_style
-	using.icon_state = "help_m"
-	using.screen_loc = ui_iarrowleft
-	using.layer = 21
-	adding += using
-
-	using = new /obj/screen()
-	using.name = "grab"
-	using.icon = ui_style
-	using.icon_state = "grab_m"
-	using.screen_loc = ui_iarrowleft
-	using.layer = 21
-	adding += using
-
-
-	using = new /obj/screen()
-	using.name = "disarm"
-	using.icon = ui_style
-	using.icon_state = "disarm_m"
-	using.screen_loc = ui_iarrowright
-	using.layer = 21
-	adding += using
-
-	using = new /obj/screen()
-	using.name = "harm"
-	using.icon = ui_style
-	using.icon_state = "harm_m"
-	using.screen_loc = ui_iarrowright
-	using.layer = 21
-	adding += using
-
-//ACCount's Intents Panel End
-
 	using = new /obj/screen() //Right hud bar
 	using.dir = SOUTH
 	using.icon = ui_style
@@ -66,7 +29,7 @@
 	adding += using
 
 
-	using = new /obj/screen()
+	using = new /obj/screen/a_intent()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = ui_style

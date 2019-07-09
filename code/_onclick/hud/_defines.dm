@@ -49,9 +49,9 @@
 #define ui_swaphand "SOUTH-1,6"
 #define ui_dropbutton "SOUTH-1,7"
 #define ui_drop_throw "SOUTH-1,8"
-#define ui_pull "SOUTH-1,10"
+#define ui_pull "SOUTH-1,9"
 #define ui_resist "EAST+1,SOUTH-1"
-#define ui_acti "SOUTH-1,12"
+#define ui_acti "SOUTH-1,10"
 #define ui_movi "EAST,SOUTH-1"
 #define ui_zonesel "EAST+1, NORTH"
 #define ui_acti_alt "14:28,1:5" //alternative intent switcher for when the interface is hidden (F12)
