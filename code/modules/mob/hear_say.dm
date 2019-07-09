@@ -77,6 +77,9 @@
 	if(!client)
 		return
 
+	if(!istype(src, /mob/dead/observer/))
+		playsound(loc, 'sound/effects/radio.ogg', 25, 1, -1)//They won't always be able to read the message, but the sound will play regardless.
+
 	if(sleeping || stat==1) //If unconscious or sleeping
 		hear_sleep(message)
 		return
