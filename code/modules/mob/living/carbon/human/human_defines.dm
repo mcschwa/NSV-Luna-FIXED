@@ -71,3 +71,5 @@
 	var/lastElaugh = 0
 
 	var/decaylevel = 0 // For rotting bodies
+
+	var/footstep = 0
