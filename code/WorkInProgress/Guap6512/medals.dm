@@ -34,7 +34,8 @@
 			else if (!announce)
 				src << "<b>Achievement Unlocked!: You unlocked the '<font color = [H]>[title]</font color>' achievement.</b></font>"
 				src << text("[desc]")
-
+//This crashes the game.
+/*
 mob/verb/show_medal()
 	set name = "Show Achievements"
 	set category = "OOC"
@@ -65,3 +66,4 @@ mob/verb/show_medal()
 						H = "red"
 				src << "<font color = [H]>[title]</font color></b></font>"
 				src << text("[desc]")
+*/
