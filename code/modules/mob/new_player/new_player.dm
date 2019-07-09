@@ -39,7 +39,11 @@
 		output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
 		output += "</div>"
 
-		src << browse(output,"window=playersetup;size=210x240;can_close=0")
+		//src << browse(output,"window=playersetup;size=210x240;can_close=0")
+		var/datum/browser/popup = new(src, "playersetup", "Player Setup", 210, 240)
+		popup.set_content(output)
+		popup.set_window_options("can_close=0;")
+		popup.open()
 		return
 
 	Stat()

@@ -302,7 +302,10 @@ datum/preferences
 		dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 		dat += "</center></body></html>"
 
-		user << browse(dat, "window=preferences;size=560x580")
+		var/datum/browser/popup = new(user, "preferences","perferences", 560, 580, src)
+		popup.set_content(dat)
+		popup.open()
+		//user << browse(dat, "window=preferences;size=560x580")
 
 	proc/SetChoices(mob/user, limit = 16, list/splitJobs = list("Chief Medical Officer"), width = 550, height = 550)
 		if(!job_master)
@@ -394,6 +397,10 @@ datum/preferences
 
 		user << browse(null, "window=preferences")
 		user << browse(HTML, "window=mob_occupation;size=[width]x[height]")
+		//var/datum/browser/popup = new(user, "Occupation", "Occupation", width, height)
+		//popup.set_content(HTML)
+		//popup.set_window_options("can_close=0;")
+		//popup.open()
 		return
 
 	proc/SetDisabilities(mob/user)
