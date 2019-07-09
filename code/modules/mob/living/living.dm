@@ -705,6 +705,7 @@
 
 	resting = !resting
 	src << "\blue You are now [resting ? "resting" : "getting up"]"
+	Weaken(1)
 
 /mob/living/proc/handle_ventcrawl(var/obj/machinery/atmospherics/unary/vent_pump/vent_found = null, var/ignore_items = 0) // -- TLE -- Merged by Carn
 	if(stat)

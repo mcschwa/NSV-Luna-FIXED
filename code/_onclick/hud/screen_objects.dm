@@ -392,8 +392,8 @@
 		if("pull")
 			usr.stop_pulling()
 		if("rest")
-			usr.resting = !(usr.resting)
-			src << "\blue You are now [usr.resting ? "resting" : "getting up"]"
+			if(isliving(usr))
+				usr:lay_down()
 		if("throw")
 			if(!usr.stat && isturf(usr.loc) && !usr.restrained())
 				usr:toggle_throw_mode()
