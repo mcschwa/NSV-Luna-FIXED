@@ -48,6 +48,18 @@
 	update_adjacent()
 	..()
 
+
+//Thanks InfinityStation!
+/obj/structure/table/Crossed(var/mob/living/M as mob)
+	if(!flipped)
+		if(istype(M))
+			M.pixel_y = 12
+
+/obj/structure/table/Uncrossed(var/mob/living/M as mob)
+	if(!flipped)
+		if(istype(M))
+			M.pixel_y = 0
+
 /obj/structure/table/update_icon()
 	spawn(2) //So it properly updates when deleting
 
@@ -304,6 +316,8 @@
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
+	if(locate(/obj/structure/table) in get_turf(mover))
 		return 1
 	if (flipped)
 		if (get_dir(loc, target) == dir)
