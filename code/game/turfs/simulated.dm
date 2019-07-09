@@ -22,20 +22,41 @@
 /turf/simulated/Entered(atom/A, atom/OL)
 	if (istype(A,/mob/living/carbon))
 		var/mob/living/carbon/M = A
-		if(M.lying)        return
+		if(M.lying)
+			return ..()
 
-		if(istype(M, /mob/living/carbon/human))
+
+		if(istype(M, /mob/living/carbon/human)) //human footsteps
+			var/footstepsound
 			var/mob/living/carbon/human/H = M
+			//Shoe sounds
+			if 		(istype(src, /turf/simulated/floor/grass))
+				footstepsound = "grassfootsteps"
+			else 	if(istype(src, /turf/simulated/floor/beach/water))
+				footstepsound = "waterfootsteps"
+			else 	if(istype(src, /turf/simulated/floor/wood))
+				footstepsound = "woodfootsteps"
+			else 	if(istype(src, /turf/simulated/floor/carpet))
+				footstepsound = "carpetfootsteps"
+			else
+				footstepsound = "erikafootsteps"
+
 			if(istype(H.shoes, /obj/item/clothing/shoes/clown_shoes))
-				var/obj/item/clothing/shoes/clown_shoes/O = H.shoes
+				footstepsound = "clownstep"
+
+			if(istype(H.shoes, /obj/item/clothing/shoes) && !H.throwing)//This is probably the worst possible way to handle walking sfx.
 				if(H.m_intent == "run")
-					if(O.footstep >= 2)
-						O.footstep = 0
-						playsound(src, "clownstep", 50, 1) // this will get annoying very fast.
+					if(H.footstep >= 1)//Every two steps.
+						H.footstep = 0
+						playsound(src, footstepsound, 100, 1)
 					else
-						O.footstep++
+						H.footstep++
 				else
-					playsound(src, "clownstep", 20, 1)
+					if(H.footstep >= 6)
+						H.footstep = 0
+						playsound(src, footstepsound, 100, 1)
+					else
+						H.footstep++
 
 			// Tracking blood
 			var/list/bloodDNA = null
