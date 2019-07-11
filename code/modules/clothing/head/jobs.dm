@@ -12,10 +12,10 @@
 //Captain: This probably shouldn't be space-worthy
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
-	icon_state = "captain"
+	icon_state = "captaincap"
 	desc = "It's good being the king."
 	flags = FPRINT|TABLEPASS
-	item_state = "caphat"
+	item_state = "captaincap"
 	siemens_coefficient = 0.9
 
 //Captain: This probably shouldn't be space-worthy
