@@ -302,7 +302,7 @@ datum/preferences
 		dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 		dat += "</center></body></html>"
 
-		var/datum/browser/popup = new(user, "preferences","perferences", 560, 580, src)
+		var/datum/browser/popup = new(user, "preferences","Preferences", 560, 580, src)
 		popup.set_content(dat)
 		popup.open()
 		//user << browse(dat, "window=preferences;size=560x580")
