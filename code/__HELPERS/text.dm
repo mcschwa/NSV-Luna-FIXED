@@ -35,10 +35,10 @@
 	return t
 
 proc/sanitize_PDA(var/msg)
-	var/index = findtext(msg, "ÿ")
+	var/index = findtext(msg, "ï¿½")
 	while(index)
 		msg = copytext(msg, 1, index) + "&#1103;" + copytext(msg, index+1)
-		index = findtext(msg, "ÿ")
+		index = findtext(msg, "ï¿½")
 	index = findtext(msg, "&#255;")
 	while(index)
 		msg = copytext(msg, 1, index) + "&#1103;" + copytext(msg, index+1)
@@ -46,7 +46,7 @@ proc/sanitize_PDA(var/msg)
 	return msg
 
 //Removes a few problematic characters
-/proc/sanitize(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ÿ"="&#255;"))
+/proc/sanitize(var/t,var/list/repl_chars = list("\n"="#","\t"="#","ï¿½"="&#255;"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -54,7 +54,7 @@ proc/sanitize_PDA(var/msg)
 			index = findtext(t, char)
 	return strip_html_simple(t)
 
-/proc/sanitize_uni(var/t,var/list/repl_chars = list("ÿ"="&#255;"))
+/proc/sanitize_uni(var/t,var/list/repl_chars = list("ï¿½"="&#255;"))
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
 		while(index)
@@ -268,9 +268,9 @@ proc/checkhtml(var/t)
 //is in the other string at the same spot (assuming it is not a replace char).
 //This is used for fingerprints
 	var/newtext = text
-	if(lentext(text) != lentext(compare))
+	if(length(text) != length(compare))
 		return 0
-	for(var/i = 1, i < lentext(text), i++)
+	for(var/i = 1, i < length(text), i++)
 		var/a = copytext(text,i,i+1)
 		var/b = copytext(compare,i,i+1)
 //if it isn't both the same letter, or if they are both the replacement character
@@ -290,7 +290,7 @@ proc/checkhtml(var/t)
 	if(!text || !character)
 		return 0
 	var/count = 0
-	for(var/i = 1, i <= lentext(text), i++)
+	for(var/i = 1, i <= length(text), i++)
 		var/a = copytext(text,i,i+1)
 		if(a == character)
 			count++
@@ -311,7 +311,7 @@ proc/checkhtml(var/t)
 		else if (a == 184)
 			t += ascii2text(168)
 		else t += ascii2text(a)
-	t = replacetext(t,"&#255;","ß")
+	t = replacetext(t,"&#255;","ï¿½")
 	return t
 
 
@@ -327,7 +327,7 @@ proc/checkhtml(var/t)
 	return t
 
 /proc/rhtml_encode(var/msg)
-	var/list/c = text2list(msg, "ÿ")
+	var/list/c = text2list(msg, "ï¿½")
 	if(c.len == 1)
 		c = text2list(msg, "&#255;")
 		if(c.len == 1)
@@ -342,7 +342,7 @@ proc/checkhtml(var/t)
 	return out
 
 /proc/rhtml_encode_paper(var/msg)
-	var/list/c = text2list(msg, "ÿ")
+	var/list/c = text2list(msg, "ï¿½")
 	if(c.len == 1)
 		c = text2list(msg, "&#1103;")
 		if(c.len == 1)
@@ -357,7 +357,7 @@ proc/checkhtml(var/t)
 	return out
 
 /proc/rhtml_decode(var/msg)
-	var/list/c = text2list(msg, "ÿ")
+	var/list/c = text2list(msg, "ï¿½")
 	if(c.len == 1)
 		c = text2list(msg, "&#255;")
 		if(c.len == 1)
@@ -372,7 +372,7 @@ proc/checkhtml(var/t)
 	return out
 
 /proc/rhtml_decode_paper(var/msg)
-	var/list/c = text2list(msg, "ÿ")
+	var/list/c = text2list(msg, "ï¿½")
 	if(c.len == 1)
 		c = text2list(msg, "&#1103;")
 		if(c.len == 1)
@@ -390,8 +390,8 @@ proc/checkhtml(var/t)
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
 proc/TextPreview(var/string,var/len=40)
-	if(lentext(string) <= len)
-		if(!lentext(string))
+	if(length(string) <= len)
+		if(!length(string))
 			return "\[...\]"
 		else
 			return sanitize(string)

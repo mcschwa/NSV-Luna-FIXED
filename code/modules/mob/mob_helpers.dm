@@ -249,29 +249,29 @@ proc/slur(phrase)
 	phrase = html_decode(phrase)
 	var/index = findtext(phrase, "&#255;")
 	while(index)
-		phrase = copytext(phrase, 1, index) + "ÿ" + copytext(phrase, index+1)
+		phrase = copytext(phrase, 1, index) + "ï¿½" + copytext(phrase, index+1)
 		index = findtext(phrase, "&#255;")
 	var
-		leng=lentext(phrase)
-		counter=lentext(phrase)
+		leng=length(phrase)
+		counter=length(phrase)
 		newphrase=""
 		newletter=""
 
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(prob(33))
-			if(lowerrustext(newletter)=="î")	newletter="ó"
-			if(lowerrustext(newletter)=="û")	newletter="i"
-			if(lowerrustext(newletter)=="ð")	newletter="r"
-			if(lowerrustext(newletter)=="ë")	newletter="ëü"
-			if(lowerrustext(newletter)=="ç")	newletter="ñ"
-			if(lowerrustext(newletter)=="â")	newletter="ô"
-			if(lowerrustext(newletter)=="á")	newletter="ï"
-			if(lowerrustext(newletter)=="ã")	newletter="õ"
-			if(lowerrustext(newletter)=="ä")	newletter="ò"
-			if(lowerrustext(newletter)=="ë")	newletter="ëü"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="i"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="r"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½"
+			if(lowerrustext(newletter)=="ï¿½")	newletter="ï¿½ï¿½"
 		if(rand(1,20)==20)
-			if(newletter==" ")	newletter="...[pick("ýýýààà", "õûûûûõõ", "ãõûûûûû", "ãûûûû")]..."
+			if(newletter==" ")	newletter="...[pick("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½")]..."
 			if(newletter==".")	newletter=" *BURP*."
 		switch(rand(1,15))
 			if(1,3,5,8)	newletter="[lowerrustext(newletter)]"
@@ -282,10 +282,10 @@ proc/slur(phrase)
 			if(13)	newletter="<small>[newletter]</small>"
 		newphrase+="[newletter]"
 		counter-=1
-	index = findtext(newphrase, "ÿ")
+	index = findtext(newphrase, "ï¿½")
 	while(index)
 		newphrase = copytext(newphrase, 1, index) + "&#255;" + copytext(newphrase, index+1)
-		index = findtext(newphrase, "ÿ")
+		index = findtext(newphrase, "ï¿½")
 	return newphrase
 
 /proc/stutter(phrase)

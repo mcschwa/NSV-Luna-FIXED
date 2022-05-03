@@ -40,7 +40,7 @@ proc/listgetindex(var/list/list,index)
 			return list[index]
 	return
 
-//islist is a reserved word LOL
+//islist is a reserved word
 // proc/islist(list/list)
 // 	if(istype(list))
 // 		return 1
